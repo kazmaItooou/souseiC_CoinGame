@@ -53,15 +53,16 @@ void ofApp::update(){
 
     //----------------------------------------------
     //コインの位置
-    //yがxよりも一瞬遅いせいでクラッシュするのでyのcacheを作ることで改善
+    //yクラッシュするのでx ,yのcacheを作ることで改善
     int player_y_cache=player_y;
-    if(coin_gold.Pos_x== player_x && coin_gold.Pos_y== player_y_cache){
+    int player_x_cache=player_x;
+    if(coin_gold.Pos_x== player_x_cache && coin_gold.Pos_y== player_y_cache){
         coin_gold.setPos(coord(ofRandom(1,15)),coord(ofRandom(1,11)));
         std::cout << "coin_gold move" << std::endl;
         pointCnt+=point_gold;
         pointSound.play();
     }
-    if(coin_silver.Pos_x== player_x && coin_silver.Pos_y== player_y_cache){
+    if(coin_silver.Pos_x== player_x_cache && coin_silver.Pos_y== player_y_cache){
         coin_silver.setPos(coord(ofRandom(1,15)),coord(ofRandom(1,11)));
         std::cout << "coin_silver move" << std::endl;
         pointCnt+=point_silver;
