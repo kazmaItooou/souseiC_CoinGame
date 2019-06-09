@@ -25,7 +25,19 @@ class ofApp : public ofBaseApp{
         //その他
         ofTrueTypeFont std_font;
         startobj startbutton;
-        ofTimer gameTimer;
+        //---------------------------------------------
+//        //カウントダウン
+//        bool next_Countdown;
+//        int minute_Countdown;
+//        int second_Countdown;
+        //--------------------------------------------
+        //終了
+        bool endtimerenable;
+        int minute_end;
+        int second_end;
+        int counddown_end;
+        int second_tmp_end;
+        ofSoundPlayer countSound_end;
         //---------------------------------------------
         //ゲーム内変数
         int BASE_COORD;//公倍数[1, 2, 4, 5, 8, 10, 16, 20, 32, 40, 80, 160]

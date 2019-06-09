@@ -7,6 +7,7 @@ void ofApp::setup(){
     ofBackground(0, 0, 0);//背景は黒
     ofSetRectMode(OF_RECTMODE_CENTER);
     startbutton.setup();
+    countSound_end.load("sound/endcount.wav");
     //---------------------------------------------
     //フォント
     ofTrueTypeFontSettings settings("font/PixelMplus12-Regular.ttf",30);//設定一式を納めるインスタンス
@@ -44,7 +45,38 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    if(startbutton.isEnable)return;
+    //スタートボタンがONのときは常にminute_end、second_endに現在の時間を入れる。
+    //そしてタイマーをOFFにし続ける。
+    if(!startbutton.isEnable){
+        //ボタンが押されたときにタイマーをONにする
+        endtimerenable=true;
+    }else{
+        minute_end=ofGetMinutes();
+        second_end=ofGetSeconds();
+        second_tmp_end=ofGetSeconds();
+        counddown_end=60;
+        endtimerenable=false;
+        return;
+    }
+    //タイマーがONになっているとき、先程の処理でわかった時刻+1分になったときに再びタイマーをつける。
+    if(endtimerenable){
+        //----------------------------------
+        //音を鳴らす
+        if(second_tmp_end!=ofGetSeconds()){
+            second_tmp_end=ofGetSeconds();
+            counddown_end--;
+            if(counddown_end<=5){
+                countSound_end.play();
+            }
+
+        }
+        //-------------------------------------
+        if(minute_end+1==ofGetMinutes() && second_end==ofGetSeconds()){
+            startbutton.isEnable=true;
+            return;
+        }
+    }
+
     if (player_x<=coord(0)){player_x= coord(1);}
     if (player_x>=coord(16)){player_x= coord(15);}
 
@@ -91,12 +123,17 @@ void ofApp::draw(){
         }
     }
     //---------------------------------------------
+    //カウントダウン
+    //---------------------------------------------
+    //終了
+
+    //---------------------------------------------
     //Coinオブジェクト
     coin_gold.draw();
     coin_silver.draw();
     //---------------------------------------------
     playerImg.draw(player_x, player_y);//プレイヤー
-    if(startbutton.isEnable){startbutton.Draw();}
+    if(startbutton.isEnable){startbutton.Draw();}//スタートボタン
     //---------------------------------------------
     //下のbox
     ofPushMatrix();
