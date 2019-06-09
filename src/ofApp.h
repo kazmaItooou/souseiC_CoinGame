@@ -35,6 +35,9 @@ class ofApp : public ofBaseApp{
         bool endtimerenable;
         int minute_end;
         int second_end;
+        int counddown_end;
+        int second_tmp_end;
+        ofSoundPlayer countSound_end;
         //---------------------------------------------
         //ゲーム内変数
         int BASE_COORD;//公倍数[1, 2, 4, 5, 8, 10, 16, 20, 32, 40, 80, 160]
