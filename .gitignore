@@ -1,2 +1,7 @@
 
 bin/souseiC_CoinGame_debug.exe
+addons.make
+config.make
+Makefile
+souseiC_CoinGame.qbs
+souseiC_CoinGame.qbs.user
