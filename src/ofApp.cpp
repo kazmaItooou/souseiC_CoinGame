@@ -44,7 +44,25 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    if(startbutton.isEnable)return;
+    //スタートボタンがONのときは常にminute_end、second_endに現在の時間を入れる。
+    //そしてタイマーをOFFにし続ける。
+    if(!startbutton.isEnable){
+        //ボタンが押されたときにタイマーをONにする
+        endtimerenable=true;
+    }else{
+        minute_end=ofGetMinutes();
+        second_end=ofGetSeconds();
+        endtimerenable=false;
+        return;
+    }
+    //タイマーがONになっているとき、先程の処理でわかった時刻+1分になったときに再びタイマーをつける。
+    if(endtimerenable){
+        if(minute_end+1==ofGetMinutes() && second_end==ofGetSeconds()){
+            startbutton.isEnable=true;
+            return;
+        }
+    }
+
     if (player_x<=coord(0)){player_x= coord(1);}
     if (player_x>=coord(16)){player_x= coord(15);}
 
@@ -92,6 +110,8 @@ void ofApp::draw(){
     }
     //---------------------------------------------
     //カウントダウン
+    //---------------------------------------------
+    //終了
 
     //---------------------------------------------
     //Coinオブジェクト
@@ -99,7 +119,7 @@ void ofApp::draw(){
     coin_silver.draw();
     //---------------------------------------------
     playerImg.draw(player_x, player_y);//プレイヤー
-    if(startbutton.isEnable){startbutton.Draw();}
+    if(startbutton.isEnable){startbutton.Draw();}//スタートボタン
     //---------------------------------------------
     //下のbox
     ofPushMatrix();
