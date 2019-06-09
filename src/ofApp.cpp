@@ -7,6 +7,7 @@ void ofApp::setup(){
     ofBackground(0, 0, 0);//背景は黒
     ofSetRectMode(OF_RECTMODE_CENTER);
     startbutton.setup();
+    countSound_end.load("sound/endcount.wav");
     //---------------------------------------------
     //フォント
     ofTrueTypeFontSettings settings("font/PixelMplus12-Regular.ttf",30);//設定一式を納めるインスタンス
@@ -52,11 +53,24 @@ void ofApp::update(){
     }else{
         minute_end=ofGetMinutes();
         second_end=ofGetSeconds();
+        second_tmp_end=ofGetSeconds();
+        counddown_end=60;
         endtimerenable=false;
         return;
     }
     //タイマーがONになっているとき、先程の処理でわかった時刻+1分になったときに再びタイマーをつける。
     if(endtimerenable){
+        //----------------------------------
+        //音を鳴らす
+        if(second_tmp_end!=ofGetSeconds()){
+            second_tmp_end=ofGetSeconds();
+            counddown_end--;
+            if(counddown_end<=5){
+                countSound_end.play();
+            }
+
+        }
+        //-------------------------------------
         if(minute_end+1==ofGetMinutes() && second_end==ofGetSeconds()){
             startbutton.isEnable=true;
             return;
