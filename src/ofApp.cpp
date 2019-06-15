@@ -33,13 +33,24 @@ void ofApp::setup(){
     //---------------------------------------------
     //---------------------------------------------
     //Coinオブジェクト
-    pointSound.load("sound/point.wav");
     coin_gold.setImage("img/coin/gold.png");
     coin_gold.setPosRand();
     coin_gold.setPoint(20);
     coin_silver.setImage("img/coin/silver.png");
     coin_silver.setPosRand();
-    coin_gold.setPoint(10);
+    coin_silver.setPoint(10);
+    coin_copper.setImage("img/coin/copper.png");
+    coin_copper.setPosRand();
+    coin_copper.setPoint(10);
+    coin_green.setImage("img/coin/green.png");
+    coin_green.setPosRand();
+    coin_green.setPoint(10);
+    coin_blue.setImage("img/coin/blue.png");
+    coin_blue.setPosRand();
+    coin_blue.setPoint(10);
+    coin_red.setImage("img/coin/red.png");
+    coin_red.setPosRand();
+    coin_red.setPoint(10);
     //---------------------------------------------
 }
 
@@ -88,18 +99,12 @@ void ofApp::update(){
     //yクラッシュするのでx ,yのcacheを作ることで改善
     int player_y_cache=player_y;
     int player_x_cache=player_x;
-    if(coin_gold.Pos_x== player_x_cache && coin_gold.Pos_y== player_y_cache){
-        coin_gold.setPosRand();
-        std::cout << "coin_gold move" << std::endl;
-        pointCnt+=point_gold;
-        pointSound.play();
-    }
-    if(coin_silver.Pos_x== player_x_cache && coin_silver.Pos_y== player_y_cache){
-        coin_silver.setPosRand();
-        std::cout << "coin_silver move" << std::endl;
-        pointCnt+=point_silver;
-        pointSound.play();
-    }
+    pointCnt+=coin_gold.checkGetCoin(player_x_cache,player_y_cache);
+    pointCnt+=coin_silver.checkGetCoin(player_x_cache,player_y_cache);
+    pointCnt+=coin_copper.checkGetCoin(player_x_cache,player_y_cache);
+    pointCnt+=coin_green.checkGetCoin(player_x_cache,player_y_cache);
+    pointCnt+=coin_blue.checkGetCoin(player_x_cache,player_y_cache);
+    pointCnt+=coin_red.checkGetCoin(player_x_cache,player_y_cache);
     //----------------------------------------------
     if(pointCnt>=999){pointCnt=999;}//999ポイントがカンスト
 }
@@ -131,6 +136,10 @@ void ofApp::draw(){
     //Coinオブジェクト
     coin_gold.draw();
     coin_silver.draw();
+    coin_copper.draw();
+    coin_green.draw();
+    coin_blue.draw();
+    coin_red.draw();
     //---------------------------------------------
     playerImg.draw(player_x, player_y);//プレイヤー
     if(startbutton.isEnable){startbutton.Draw();}//スタートボタン

@@ -3,10 +3,12 @@ class Coin : public ofBaseApp {
 
 private:    //非公開
     int BASE_CORD = 40;
+    ofSoundPlayer countSound;
 public:    //公開
     //メソッド
-    coin();   //コンストラクタ
-
+    Coin(){   //コンストラクタ
+        countSound.load("sound/point.wav");
+    }
     //プロパティ
     float Pos_x; //位置x
     float Pos_y; //位置y
@@ -19,4 +21,6 @@ public:    //公開
     void setPoint(int value);
     void setImage(string path_on_img);
     void draw();
+
+    int checkGetCoin(int player_x, int player_y);
 };

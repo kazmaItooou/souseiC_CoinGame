@@ -30,4 +30,15 @@ void Coin::draw() {
     ofPopMatrix();
 
 }
+//コインを手に入れたとき所定の処理をしてポイントを返す
+int Coin::checkGetCoin(int player_x, int player_y){
+    if(Pos_x== player_x && Pos_y== player_y){
+        setPosRand();
+        std::cout << "coin move" << std::endl;
+        countSound.play();
+        return point;
+    }
+    return 0;
+
+}
 

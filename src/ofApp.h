@@ -55,13 +55,10 @@ class ofApp : public ofBaseApp{
 
         int pointCnt;
         char pointCntStr[3];
-        int point_gold;
-        int point_silver;
         //---------------------------------------------
         //---------------------------------------------
         //Coinオブジェクト
-        ofSoundPlayer pointSound;
-        Coin coin_gold,coin_silver;
+        Coin coin_gold,coin_silver,coin_copper,coin_green,coin_blue,coin_red;
         std::string coins[1];
 //        coins[0]="coin_gold";
 //        coins[1]="coin_silver";
