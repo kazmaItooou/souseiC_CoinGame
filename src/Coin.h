@@ -2,6 +2,7 @@
 class Coin : public ofBaseApp {
 
 private:    //非公開
+    int BASE_CORD = 40;
 public:    //公開
     //メソッド
     coin();   //コンストラクタ
@@ -13,6 +14,7 @@ public:    //公開
 
     //アクセサ
     void setPos(float x, float y);
+    void setPosRand();
     void setImage(string path_on_img);
     void draw();
 };

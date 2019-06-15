@@ -4,7 +4,12 @@ void Coin::setPos(float x, float y){
     Pos_x = x;
     Pos_y = y;
 }
-
+void Coin::setPosRand(){
+    int x = ofRandom(1,15);
+    int y = ofRandom(1,11);
+    Pos_x = x*BASE_CORD;
+    Pos_y = y*BASE_CORD;
+}
 void Coin::setImage(string path_on_img){
     coinImg.load(path_on_img);
 }

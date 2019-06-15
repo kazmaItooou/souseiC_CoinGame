@@ -37,9 +37,9 @@ void ofApp::setup(){
     //Coinオブジェクト
     pointSound.load("sound/point.wav");
     coin_gold.setImage("img/coin/gold.png");
-    coin_gold.setPos(coord(ofRandom(1,15)),coord(ofRandom(1,11)));
+    coin_gold.setPosRand();
     coin_silver.setImage("img/coin/silver.png");
-    coin_silver.setPos(coord(ofRandom(1,15)),coord(ofRandom(1,11)));
+    coin_silver.setPosRand();
     //---------------------------------------------
 }
 
@@ -89,13 +89,13 @@ void ofApp::update(){
     int player_y_cache=player_y;
     int player_x_cache=player_x;
     if(coin_gold.Pos_x== player_x_cache && coin_gold.Pos_y== player_y_cache){
-        coin_gold.setPos(coord(ofRandom(1,15)),coord(ofRandom(1,11)));
+        coin_gold.setPosRand();
         std::cout << "coin_gold move" << std::endl;
         pointCnt+=point_gold;
         pointSound.play();
     }
     if(coin_silver.Pos_x== player_x_cache && coin_silver.Pos_y== player_y_cache){
-        coin_silver.setPos(coord(ofRandom(1,15)),coord(ofRandom(1,11)));
+        coin_silver.setPosRand();
         std::cout << "coin_silver move" << std::endl;
         pointCnt+=point_silver;
         pointSound.play();
