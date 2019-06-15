@@ -5,3 +5,4 @@ config.make
 Makefile
 souseiC_CoinGame.qbs.user
 souseiC_CoinGame.qbs
+bin/souseiC_CoinGame.exe
