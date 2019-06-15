@@ -10,9 +10,6 @@ void Coin::setPosRand(){
     Pos_x = x*BASE_CORD;
     Pos_y = y*BASE_CORD;
 }
-void Coin::setPoint(int value){
-    point=value;
-}
 void Coin::setImage(string path_on_img){
     coinImg.load(path_on_img);
 }

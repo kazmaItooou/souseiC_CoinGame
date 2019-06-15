@@ -10,13 +10,11 @@ public:    //公開
     //プロパティ
     float Pos_x; //位置x
     float Pos_y; //位置y
-    int point;
     ofImage coinImg;//画像用変数(oF)
 
     //アクセサ
     void setPos(float x, float y);
     void setPosRand();
-    void setPoint(int value);
     void setImage(string path_on_img);
     void draw();
 };
