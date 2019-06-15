@@ -30,16 +30,16 @@ void ofApp::setup(){
     player_y=coord(7);
     //ポイント
     pointCnt=0;
-    point_gold=20;
-    point_silver=10;
     //---------------------------------------------
     //---------------------------------------------
     //Coinオブジェクト
     pointSound.load("sound/point.wav");
     coin_gold.setImage("img/coin/gold.png");
     coin_gold.setPosRand();
+    coin_gold.setPoint(20);
     coin_silver.setImage("img/coin/silver.png");
     coin_silver.setPosRand();
+    coin_gold.setPoint(10);
     //---------------------------------------------
 }
 
