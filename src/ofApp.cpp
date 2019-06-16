@@ -29,7 +29,6 @@ void ofApp::setup(){
     //ポイント
     pointCnt=0;
     //---------------------------------------------
-    //---------------------------------------------
     //Coinオブジェクト
     for(int i=0;i<=COIN_NUM;++i){
         coinList_p[i]=new Coin;
@@ -70,7 +69,6 @@ void ofApp::update(){
             if(counddown_end<=5){
                 countSound_end.play();
             }
-
         }
         if(minute_end+1==ofGetMinutes() && second_end==ofGetSeconds()){
             startbutton.isEnable=true;
@@ -93,11 +91,6 @@ void ofApp::update(){
         int point_cache=coinList_p[i]->checkGetCoin(player_x_cache,player_y_cache);
         pointCnt+=point_cache;
         if(point_cache>0){//こいんがかさならなくする
-//                    for(int j=0;j<3;++j){
-//                        while(!(coinList_p[i]->Pos_x==coinList_p[j]->Pos_x && coinList_p[i]->Pos_y==coinList_p[j]->Pos_y)){
-//                            coinList[i]->setPosRand();
-//                        }
-//                    }
         }
     }
     //----------------------------------------------
@@ -158,24 +151,18 @@ void ofApp::keyPressed(int key){
 
     if (key == 'w') {
         player_y -=BASE_COORD;
-        //if (player_y<=coord(0)){player_y= coord(1);}
     }
 
     if (key == 's') {
         player_y +=BASE_COORD;
-        //if (player_y>=coord(12)){player_y= coord(11);}
     }
 
     if (key == 'a') {
         player_x -=BASE_COORD;
-        //if (player_x<=coord(0)){player_x= coord(1);}
     }
     if (key == 'd') {
         player_x +=BASE_COORD;
-        //if (player_x>=coord(16)){player_x= coord(15);}
     }
-
-
 }
 
 //--------------------------------------------------------------
