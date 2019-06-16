@@ -34,6 +34,11 @@ void Coin::draw() {
 int Coin::checkGetCoin(int player_x, int player_y){
     if(Pos_x== player_x && Pos_y== player_y){
         setPosRand();
+//        for(int i=0;i<sizeof(*coin[]) / sizeof(int);++i){
+//            if((coin[i]-> Pos_x)==Pos_x &&(coin[i]-> Pos_y)==Pos_y){
+//                checkGetCoin(player_x,player_y,coin[]);
+//            }
+//        }
         std::cout << "coin move" << std::endl;
         countSound.play();
         return point;

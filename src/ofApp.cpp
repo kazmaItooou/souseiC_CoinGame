@@ -1,5 +1,4 @@
 #include "ofApp.h"
-
 //--------------------------------------------------------------
 void ofApp::setup(){
     //---------------------------------------------
@@ -32,24 +31,17 @@ void ofApp::setup(){
     //---------------------------------------------
     //---------------------------------------------
     //Coinオブジェクト
-    coin_gold.setImage("img/coin/gold.png");
-    coin_gold.setPosRand();
-    coin_gold.setPoint(20);
-    coin_silver.setImage("img/coin/silver.png");
-    coin_silver.setPosRand();
-    coin_silver.setPoint(10);
-    coin_copper.setImage("img/coin/copper.png");
-    coin_copper.setPosRand();
-    coin_copper.setPoint(10);
-    coin_green.setImage("img/coin/green.png");
-    coin_green.setPosRand();
-    coin_green.setPoint(10);
-    coin_blue.setImage("img/coin/blue.png");
-    coin_blue.setPosRand();
-    coin_blue.setPoint(10);
-    coin_red.setImage("img/coin/red.png");
-    coin_red.setPosRand();
-    coin_red.setPoint(10);
+    for(int i=0;i<=COIN_NUM;++i){
+        coinList_p[i]=new Coin;
+        coinList_p[i]->setPosRand();
+        coinList_p[i]->setPoint(5*(i+1));
+    }
+    coinList_p[0]->setImage("img/coin/copper.png");
+    coinList_p[1]->setImage("img/coin/silver.png");
+    coinList_p[2]->setImage("img/coin/gold.png");
+    coinList_p[3]->setImage("img/coin/red.png");
+    coinList_p[4]->setImage("img/coin/green.png");
+    coinList_p[5]->setImage("img/coin/blue.png");
     //---------------------------------------------
 }
 
@@ -80,7 +72,6 @@ void ofApp::update(){
             }
 
         }
-        //-------------------------------------
         if(minute_end+1==ofGetMinutes() && second_end==ofGetSeconds()){
             startbutton.isEnable=true;
             return;
@@ -98,12 +89,17 @@ void ofApp::update(){
     //yクラッシュするのでx ,yのcacheを作ることで改善
     int player_y_cache=player_y;
     int player_x_cache=player_x;
-    pointCnt+=coin_gold.checkGetCoin(player_x_cache,player_y_cache);
-    pointCnt+=coin_silver.checkGetCoin(player_x_cache,player_y_cache);
-    pointCnt+=coin_copper.checkGetCoin(player_x_cache,player_y_cache);
-    pointCnt+=coin_green.checkGetCoin(player_x_cache,player_y_cache);
-    pointCnt+=coin_blue.checkGetCoin(player_x_cache,player_y_cache);
-    pointCnt+=coin_red.checkGetCoin(player_x_cache,player_y_cache);
+    for(int i=0;i<=COIN_NUM;++i){
+        int point_cache=coinList_p[i]->checkGetCoin(player_x_cache,player_y_cache);
+        pointCnt+=point_cache;
+        if(point_cache>0){//こいんがかさならなくする
+//                    for(int j=0;j<3;++j){
+//                        while(!(coinList_p[i]->Pos_x==coinList_p[j]->Pos_x && coinList_p[i]->Pos_y==coinList_p[j]->Pos_y)){
+//                            coinList[i]->setPosRand();
+//                        }
+//                    }
+        }
+    }
     //----------------------------------------------
     if(pointCnt>=999){pointCnt=999;}//999ポイントがカンスト
 }
@@ -127,18 +123,11 @@ void ofApp::draw(){
         }
     }
     //---------------------------------------------
-    //カウントダウン
-    //---------------------------------------------
-    //終了
-
-    //---------------------------------------------
     //Coinオブジェクト
-    coin_gold.draw();
-    coin_silver.draw();
-    coin_copper.draw();
-    coin_green.draw();
-    coin_blue.draw();
-    coin_red.draw();
+
+    for(int i=0;i<=COIN_NUM;++i){
+        coinList_p[i]->draw();
+    }
     //---------------------------------------------
     playerImg.draw(player_x, player_y);//プレイヤー
     if(startbutton.isEnable){startbutton.Draw();}//スタートボタン

@@ -9,6 +9,8 @@ public:    //公開
     //メソッド
     Coin(){   //コンストラクタ
         countSound.load("sound/point.wav");
+        Pos_x=0;
+        Pos_y=0;
     }
     //プロパティ
     float Pos_x; //位置x

@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "Coin.h"
 #include "startobj.h"
-
+#define COIN_NUM 5
 class ofApp : public ofBaseApp{
 	public:
 		void setup();
@@ -58,8 +58,9 @@ class ofApp : public ofBaseApp{
         //---------------------------------------------
         //---------------------------------------------
         //Coinオブジェクト
+        //vector<Coin*> coinList;
+        Coin *coinList_p[COIN_NUM];
         Coin coin_gold,coin_silver,coin_copper,coin_green,coin_blue,coin_red;
-        std::string coins[1];
 //        coins[0]="coin_gold";
 //        coins[1]="coin_silver";
 
