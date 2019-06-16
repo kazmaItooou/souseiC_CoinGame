@@ -6,7 +6,6 @@ void ofApp::setup(){
     //その他
     ofBackground(0, 0, 0);//背景は黒
     ofSetRectMode(OF_RECTMODE_CENTER);
-    startbutton.setup();
     countSound_end.load("sound/endcount.wav");
     //---------------------------------------------
     //フォント
