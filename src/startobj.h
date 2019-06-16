@@ -8,10 +8,9 @@ private:    //非公開
     ofImage buttonImg;
     ofTimer gameTimer;
 public:    //公開
-    Startobj();   //コンストラクタ
+    startobj();   //コンストラクタ
 
     bool isEnable;//ボタンが押されているか
-    void setup();
     void Draw();
     void mousePressed(int x, int y, int button);
 };

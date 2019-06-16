@@ -4,6 +4,7 @@ class Coin : public ofBaseApp {
 private:    //非公開
     int BASE_CORD = 40;
     ofSoundPlayer countSound;
+    ofImage coinImg;//画像用変数(oF)
 public:    //公開
     //メソッド
     Coin(){   //コンストラクタ
@@ -13,7 +14,6 @@ public:    //公開
     float Pos_x; //位置x
     float Pos_y; //位置y
     int point;
-    ofImage coinImg;//画像用変数(oF)
 
     //アクセサ
     void setPos(float x, float y);
