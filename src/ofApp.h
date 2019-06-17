@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "Coin.h"
 #include "startobj.h"
-
+#define COIN_NUM 5
 class ofApp : public ofBaseApp{
 	public:
 		void setup();
@@ -55,14 +55,12 @@ class ofApp : public ofBaseApp{
 
         int pointCnt;
         char pointCntStr[3];
-        int point_gold;
-        int point_silver;
         //---------------------------------------------
         //---------------------------------------------
         //Coinオブジェクト
-        ofSoundPlayer pointSound;
-        Coin coin_gold,coin_silver;
-        std::string coins[1];
+        //vector<Coin*> coinList;
+        Coin *coinList_p[COIN_NUM];
+        Coin coin_gold,coin_silver,coin_copper,coin_green,coin_blue,coin_red;
 //        coins[0]="coin_gold";
 //        coins[1]="coin_silver";
 

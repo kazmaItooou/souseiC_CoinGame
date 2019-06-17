@@ -4,7 +4,15 @@ void Coin::setPos(float x, float y){
     Pos_x = x;
     Pos_y = y;
 }
-
+void Coin::setPosRand(){
+    int x = ofRandom(1,15);
+    int y = ofRandom(1,11);
+    Pos_x = x*BASE_CORD;
+    Pos_y = y*BASE_CORD;
+}
+void Coin::setPoint(int value){
+    point=value;
+}
 void Coin::setImage(string path_on_img){
     coinImg.load(path_on_img);
 }
@@ -20,6 +28,22 @@ void Coin::draw() {
 
     ofPopStyle();
     ofPopMatrix();
+
+}
+//コインを手に入れたとき所定の処理をしてポイントを返す
+int Coin::checkGetCoin(int player_x, int player_y){
+    if(Pos_x== player_x && Pos_y== player_y){
+        setPosRand();
+//        for(int i=0;i<sizeof(*coin[]) / sizeof(int);++i){
+//            if((coin[i]-> Pos_x)==Pos_x &&(coin[i]-> Pos_y)==Pos_y){
+//                checkGetCoin(player_x,player_y,coin[]);
+//            }
+//        }
+        std::cout << "coin move" << std::endl;
+        countSound.play();
+        return point;
+    }
+    return 0;
 
 }
 

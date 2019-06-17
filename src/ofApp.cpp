@@ -1,12 +1,10 @@
 #include "ofApp.h"
-
 //--------------------------------------------------------------
 void ofApp::setup(){
     //---------------------------------------------
     //その他
     ofBackground(0, 0, 0);//背景は黒
     ofSetRectMode(OF_RECTMODE_CENTER);
-    startbutton.setup();
     countSound_end.load("sound/endcount.wav");
     //---------------------------------------------
     //フォント
@@ -30,16 +28,19 @@ void ofApp::setup(){
     player_y=coord(7);
     //ポイント
     pointCnt=0;
-    point_gold=20;
-    point_silver=10;
-    //---------------------------------------------
     //---------------------------------------------
     //Coinオブジェクト
-    pointSound.load("sound/point.wav");
-    coin_gold.setImage("img/coin/gold.png");
-    coin_gold.setPos(coord(ofRandom(1,15)),coord(ofRandom(1,11)));
-    coin_silver.setImage("img/coin/silver.png");
-    coin_silver.setPos(coord(ofRandom(1,15)),coord(ofRandom(1,11)));
+    for(int i=0;i<=COIN_NUM;++i){
+        coinList_p[i]=new Coin;
+        coinList_p[i]->setPosRand();
+        coinList_p[i]->setPoint(5*(i+1));
+    }
+    coinList_p[0]->setImage("img/coin/copper.png");
+    coinList_p[1]->setImage("img/coin/silver.png");
+    coinList_p[2]->setImage("img/coin/gold.png");
+    coinList_p[3]->setImage("img/coin/red.png");
+    coinList_p[4]->setImage("img/coin/green.png");
+    coinList_p[5]->setImage("img/coin/blue.png");
     //---------------------------------------------
 }
 
@@ -68,9 +69,7 @@ void ofApp::update(){
             if(counddown_end<=5){
                 countSound_end.play();
             }
-
         }
-        //-------------------------------------
         if(minute_end+1==ofGetMinutes() && second_end==ofGetSeconds()){
             startbutton.isEnable=true;
             return;
@@ -88,17 +87,11 @@ void ofApp::update(){
     //yクラッシュするのでx ,yのcacheを作ることで改善
     int player_y_cache=player_y;
     int player_x_cache=player_x;
-    if(coin_gold.Pos_x== player_x_cache && coin_gold.Pos_y== player_y_cache){
-        coin_gold.setPos(coord(ofRandom(1,15)),coord(ofRandom(1,11)));
-        std::cout << "coin_gold move" << std::endl;
-        pointCnt+=point_gold;
-        pointSound.play();
-    }
-    if(coin_silver.Pos_x== player_x_cache && coin_silver.Pos_y== player_y_cache){
-        coin_silver.setPos(coord(ofRandom(1,15)),coord(ofRandom(1,11)));
-        std::cout << "coin_silver move" << std::endl;
-        pointCnt+=point_silver;
-        pointSound.play();
+    for(int i=0;i<=COIN_NUM;++i){
+        int point_cache=coinList_p[i]->checkGetCoin(player_x_cache,player_y_cache);
+        pointCnt+=point_cache;
+        if(point_cache>0){//こいんがかさならなくする
+        }
     }
     //----------------------------------------------
     if(pointCnt>=999){pointCnt=999;}//999ポイントがカンスト
@@ -123,14 +116,11 @@ void ofApp::draw(){
         }
     }
     //---------------------------------------------
-    //カウントダウン
-    //---------------------------------------------
-    //終了
-
-    //---------------------------------------------
     //Coinオブジェクト
-    coin_gold.draw();
-    coin_silver.draw();
+
+    for(int i=0;i<=COIN_NUM;++i){
+        coinList_p[i]->draw();
+    }
     //---------------------------------------------
     playerImg.draw(player_x, player_y);//プレイヤー
     if(startbutton.isEnable){startbutton.Draw();}//スタートボタン
@@ -161,24 +151,18 @@ void ofApp::keyPressed(int key){
 
     if (key == 'w') {
         player_y -=BASE_COORD;
-        //if (player_y<=coord(0)){player_y= coord(1);}
     }
 
     if (key == 's') {
         player_y +=BASE_COORD;
-        //if (player_y>=coord(12)){player_y= coord(11);}
     }
 
     if (key == 'a') {
         player_x -=BASE_COORD;
-        //if (player_x<=coord(0)){player_x= coord(1);}
     }
     if (key == 'd') {
         player_x +=BASE_COORD;
-        //if (player_x>=coord(16)){player_x= coord(15);}
     }
-
-
 }
 
 //--------------------------------------------------------------

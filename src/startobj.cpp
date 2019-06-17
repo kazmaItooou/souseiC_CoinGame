@@ -1,4 +1,8 @@
 #include "startobj.h"
+startobj::startobj(){
+    buttonImg.load("img/start.png");
+    isEnable=true;
+}
 bool startobj::btn_y(float OverY,float UnderY,float MouseY){
     if(OverY<=MouseY && UnderY>=MouseY){
         return true;
@@ -11,12 +15,6 @@ bool startobj::btn_x(float LeftX, float RightX,float MouseX){
         return true;
     }
     return false;
-}
-void startobj::setup(){
-    buttonImg.load("img/start.png");
-    isEnable=true;
-//    gameTimer.setPeriodicEvent(10000000000);
-//    startThread();
 }
 void startobj::Draw(){
     ofPushMatrix();//座標系退避
