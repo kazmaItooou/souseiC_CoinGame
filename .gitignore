@@ -4,5 +4,5 @@ addons.make
 config.make
 Makefile
 souseiC_CoinGame.qbs.user
-bin/souseiC_CoinGame.exe
 souseiC_CoinGame.qbs
+bin/souseiC_CoinGame.exe
