@@ -91,6 +91,15 @@ void ofApp::update(){
         int point_cache=coinList_p[i]->checkGetCoin(player_x_cache,player_y_cache);
         pointCnt+=point_cache;
         if(point_cache>0){//こいんがかさならなくする
+            for(int j=0;j<=COIN_NUM;++j){
+                if(coinList_p[i]->Pos_x==coinList_p[j]->Pos_x &&
+                   coinList_p[i]->Pos_y==coinList_p[j]->Pos_y){
+                    if(coinList_p[i]!=coinList_p[j]){
+                        coinList_p[i]->setPosRand();
+                        cout << "kasanatta" <<endl;
+                    }
+                }
+            }
         }
     }
     //----------------------------------------------
