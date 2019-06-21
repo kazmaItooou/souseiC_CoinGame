@@ -16,6 +16,9 @@ http://www.hmix.net/music_gallery/image/game.htm#machi
 https://openframeworks.cc/
 
 を使用
+# 説明
+コインを集めることで、ポイントを稼いでいくゲーム
 
-動作動画
+現在も制作中
+動画
 https://youtu.be/_E_jL3HBb0E
