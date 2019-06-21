@@ -16,3 +16,6 @@ http://www.hmix.net/music_gallery/image/game.htm#machi
 https://openframeworks.cc/
 
 を使用
+
+動作動画
+https://youtu.be/_E_jL3HBb0E
