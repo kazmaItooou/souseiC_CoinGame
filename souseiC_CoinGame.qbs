@@ -20,9 +20,9 @@ Project{
             "src/barrierManager.h",
             "src/startobj.cpp",
             "src/startobj.h",
-            'src/main.cpp',
-            'src/ofApp.cpp',
-            'src/ofApp.h',
+            "src/main.cpp",
+            "src/ofApp.cpp",
+            "src/ofApp.h",
         ]
 
         of.addons: [

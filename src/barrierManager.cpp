@@ -8,8 +8,8 @@ barrierManager::barrierManager(){
                        {3,5},{3,6},{3,7},{4,5},{4,7},//4
                        {13,5},{13,6},{13,7},{12,5},{12,7},//5
                        {7,8},{7,9},{8,9},{9,9},{9,8},//6
-                       {4,2},{5,2},{4,3},//7
-                       {11,2},{12,2},{12,3}};//8
+                       {4,9},{5,10},{4,10},//7
+                       {11,10},{12,9},{12,10}};//8
     barrierSetSound.load("sound/setbarrier.mp3");
     barrierSetSound.play();
     barrierKnockedSound.load("sound/knocked.mp3");
