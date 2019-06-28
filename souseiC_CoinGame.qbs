@@ -14,6 +14,10 @@ Project{
         files: [
             "src/Coin.cpp",
             "src/Coin.h",
+            "src/barrier.cpp",
+            "src/barrier.h",
+            "src/barrierManager.cpp",
+            "src/barrierManager.h",
             "src/startobj.cpp",
             "src/startobj.h",
             'src/main.cpp',

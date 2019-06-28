@@ -1,6 +1,7 @@
 #include "ofMain.h"
 class barrier : public ofBaseApp{
 private:
+    int BASE_CORD = 40;
     ofImage barrierImg;
     ofSoundPlayer barrierSetSound;
     ofSoundPlayer barrierKnockedSound;
@@ -12,4 +13,6 @@ public:
 
     void setPos(int x, int y);
     void draw();
+
+    ofVec2f getPos();
 };
