@@ -71,6 +71,8 @@ class ofApp : public ofBaseApp{
 
         //barrier
         barrierManager bM;
+        bool bool_bM;//バリアを発動するか
+        bool bool_bM_sound;
 
 
 

@@ -42,6 +42,9 @@ void ofApp::setup(){
     coinList_p[4]->setImage("img/coin/green.png");
     coinList_p[5]->setImage("img/coin/blue.png");
     //---------------------------------------------
+    //バリア
+    bool_bM=false;
+    bool_bM_sound=true;
 }
 
 //--------------------------------------------------------------
@@ -72,6 +75,8 @@ void ofApp::update(){
         }
         if(minute_end+1==ofGetMinutes() && second_end==ofGetSeconds()){
             startbutton.isEnable=true;
+            pointCnt=0;
+            bool_bM_sound=true;
             return;
         }
     }
@@ -94,13 +99,9 @@ void ofApp::update(){
         if(point_cache>0){//こいんがかさならなくする
             for(int j=0;j<=COIN_NUM;++j){
 
-//                while(((coinList_p[i]->Pos_x==coinList_p[j]->Pos_x &&
-//                   coinList_p[i]->Pos_y==coinList_p[j]->Pos_y) ||
-//                        (bM.isbarrierTouchedtoPlayer(coinList_p[i]->Pos_x ,coinList_p[i]->Pos_y)))){
                 if((coinList_p[i]->Pos_x==coinList_p[j]->Pos_x &&
                    coinList_p[i]->Pos_y==coinList_p[j]->Pos_y) ||
                         (bM.isbarrierTouchedtoPlayer(coinList_p[i]->Pos_x ,coinList_p[i]->Pos_y))){
-
 
                     if(coinList_p[i]!=coinList_p[j]){
                         coinList_p[i]->setPosRand();
@@ -113,10 +114,18 @@ void ofApp::update(){
 
     }
     //barrierとの接触
-    if(bM.isbarrierTouchedtoPlayer(player_x_cache ,player_y_cache)){
+    if(bM.isbarrierTouchedtoPlayer(player_x_cache ,player_y_cache) && bool_bM){
         player_y=before_player_y;
         player_x=before_player_x;
     }
+
+    if(pointCnt>=200){
+        bool_bM=true;
+        if(bool_bM_sound){
+            bM.playSetSound();
+            bool_bM_sound=false;
+        }
+    }else bool_bM=false;
 
     if(pointCnt>=999){pointCnt=999;}//999ポイントがカンスト
 }
@@ -140,7 +149,8 @@ void ofApp::draw(){
         }
     }
     //barrierオブジェクト
-    bM.draw();
+
+    if(bool_bM){bM.draw();}
     //---------------------------------------------
     //Coinオブジェクト
 

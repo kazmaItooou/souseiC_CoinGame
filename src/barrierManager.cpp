@@ -11,7 +11,6 @@ barrierManager::barrierManager(){
                        {4,9},{5,10},{4,10},//7
                        {11,10},{12,9},{12,10}};//8
     barrierSetSound.load("sound/setbarrier.mp3");
-    barrierSetSound.play();
     barrierKnockedSound.load("sound/knocked.mp3");
     for(int i=0;i<=32;i++){//バリアの位置をセット
         barrier *b = new barrier;
@@ -25,6 +24,10 @@ void barrierManager::draw(){
     for (int i=0; i<barrierList.size(); i++) {
         barrierList.at(i)->draw();
     }
+}
+
+void barrierManager::playSetSound(){
+    barrierSetSound.play();
 }
 
 bool barrierManager::isbarrierTouchedtoPlayer(int Player_x,int Player_y){
