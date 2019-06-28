@@ -5,13 +5,14 @@
 
 class barrierManager {
 private:
-public:
     ofSoundPlayer barrierSetSound;
-    ofSoundPlayer barrierKnockedSound;
+    ofSoundPlayer barrierTouchSound;
     int BASE_CORD = 40;
+public:
     barrierManager();
     vector <barrier *> barrierList;
     void draw();
     void playSetSound();
-    bool isbarrierTouchedtoPlayer(int Player_x,int Player_y);
+    void playTouchSound();
+    bool isbarrierTouchedtoPlayer(int Player_x,int Player_y);//プレイヤー等がバリアと重なっているか真偽を返す
     };

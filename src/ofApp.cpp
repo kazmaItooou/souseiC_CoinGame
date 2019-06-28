@@ -1,6 +1,6 @@
 #include "ofApp.h"
 //--------------------------------------------------------------
-void ofApp::setup(){//一応完成
+void ofApp::setup(){
     //---------------------------------------------
     //その他
     ofBackground(0, 0, 0);//背景は黒
@@ -117,10 +117,13 @@ void ofApp::update(){
     if(bM.isbarrierTouchedtoPlayer(player_x_cache ,player_y_cache) && bool_bM){
         player_y=before_player_y;
         player_x=before_player_x;
+        bM.playTouchSound();
     }
 
+    //　pointCnt>=200　でバリアをONにする
     if(pointCnt>=200){
         bool_bM=true;
+        //バリアの発動のときに音を出す
         if(bool_bM_sound){
             bM.playSetSound();
             bool_bM_sound=false;
@@ -149,18 +152,19 @@ void ofApp::draw(){
         }
     }
     //barrierオブジェクト
-
     if(bool_bM){bM.draw();}
-    //---------------------------------------------
-    //Coinオブジェクト
 
+    //Coinオブジェクト
     for(int i=0;i<=COIN_NUM;++i){
         coinList_p[i]->draw();
     }
-    //---------------------------------------------
-    playerImg.draw(player_x, player_y);//プレイヤー
-    if(startbutton.isEnable){startbutton.Draw();}//スタートボタン
-    //---------------------------------------------
+
+    //プレイヤー
+    playerImg.draw(player_x, player_y);
+
+    //スタートボタン
+    if(startbutton.isEnable){startbutton.Draw();}
+
     //下のbox
     ofPushMatrix();
         underBoxImg.draw(ofGetWidth()/2+60, ofGetHeight()-60,ofGetWidth()-120,120);
@@ -174,18 +178,19 @@ void ofApp::draw(){
     sprintf(pointCntStr,"%3d",pointCnt);
     std_font.drawString(pointCntStr, 30, ofGetHeight()-30);
     ofSetColor(255,255,255,255);
-    //---------------------------------------------
 
 
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    if(!bool_keyReleased) return;
+    if(!bool_keyReleased) return;//連続移動できないようにする
     if(bool_keyReleased)bool_keyReleased= false;
     if(key==1)ofSetWindowShape(640,480);
-        before_player_y=player_y;
-        before_player_x=player_x;
+    //バリア用のプレイヤー位置保存
+    before_player_y=player_y;
+    before_player_x=player_x;
+
     if (key == 'w') {
         before_player_y=player_y;
         player_y -=BASE_COORD;
@@ -209,7 +214,7 @@ void ofApp::keyPressed(int key){
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-    bool_keyReleased = true;
+    bool_keyReleased = true;//連続移動できないようにする
 
 }
 
