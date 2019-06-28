@@ -42,6 +42,9 @@ void ofApp::setup(){
     coinList_p[4]->setImage("img/coin/green.png");
     coinList_p[5]->setImage("img/coin/blue.png");
     //---------------------------------------------
+    //バリア
+    bool_bM=false;
+    bool_bM_sound=true;
 }
 
 //--------------------------------------------------------------
@@ -72,6 +75,8 @@ void ofApp::update(){
         }
         if(minute_end+1==ofGetMinutes() && second_end==ofGetSeconds()){
             startbutton.isEnable=true;
+            pointCnt=0;
+            bool_bM_sound=true;
             return;
         }
     }
@@ -90,10 +95,14 @@ void ofApp::update(){
     for(int i=0;i<=COIN_NUM;++i){
         int point_cache=coinList_p[i]->checkGetCoin(player_x_cache,player_y_cache);
         pointCnt+=point_cache;
+
         if(point_cache>0){//こいんがかさならなくする
             for(int j=0;j<=COIN_NUM;++j){
-                if(coinList_p[i]->Pos_x==coinList_p[j]->Pos_x &&
-                   coinList_p[i]->Pos_y==coinList_p[j]->Pos_y){
+
+                if((coinList_p[i]->Pos_x==coinList_p[j]->Pos_x &&
+                   coinList_p[i]->Pos_y==coinList_p[j]->Pos_y) ||
+                        (bM.isbarrierTouchedtoPlayer(coinList_p[i]->Pos_x ,coinList_p[i]->Pos_y))){
+
                     if(coinList_p[i]!=coinList_p[j]){
                         coinList_p[i]->setPosRand();
                         cout << "kasanatta" <<endl;
@@ -101,8 +110,26 @@ void ofApp::update(){
                 }
             }
         }
+
+
     }
-    //----------------------------------------------
+    //barrierとの接触
+    if(bM.isbarrierTouchedtoPlayer(player_x_cache ,player_y_cache) && bool_bM){
+        player_y=before_player_y;
+        player_x=before_player_x;
+        bM.playTouchSound();
+    }
+
+    //　pointCnt>=200　でバリアをONにする
+    if(pointCnt>=200){
+        bool_bM=true;
+        //バリアの発動のときに音を出す
+        if(bool_bM_sound){
+            bM.playSetSound();
+            bool_bM_sound=false;
+        }
+    }else bool_bM=false;
+
     if(pointCnt>=999){pointCnt=999;}//999ポイントがカンスト
 }
 
@@ -124,16 +151,20 @@ void ofApp::draw(){
             ofSetColor(255,255,255);
         }
     }
-    //---------------------------------------------
-    //Coinオブジェクト
+    //barrierオブジェクト
+    if(bool_bM){bM.draw();}
 
+    //Coinオブジェクト
     for(int i=0;i<=COIN_NUM;++i){
         coinList_p[i]->draw();
     }
-    //---------------------------------------------
-    playerImg.draw(player_x, player_y);//プレイヤー
-    if(startbutton.isEnable){startbutton.Draw();}//スタートボタン
-    //---------------------------------------------
+
+    //プレイヤー
+    playerImg.draw(player_x, player_y);
+
+    //スタートボタン
+    if(startbutton.isEnable){startbutton.Draw();}
+
     //下のbox
     ofPushMatrix();
         underBoxImg.draw(ofGetWidth()/2+60, ofGetHeight()-60,ofGetWidth()-120,120);
@@ -147,36 +178,43 @@ void ofApp::draw(){
     sprintf(pointCntStr,"%3d",pointCnt);
     std_font.drawString(pointCntStr, 30, ofGetHeight()-30);
     ofSetColor(255,255,255,255);
-    //---------------------------------------------
 
 
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    if(!bool_keyReleased) return;
+    if(!bool_keyReleased) return;//連続移動できないようにする
     if(bool_keyReleased)bool_keyReleased= false;
     if(key==1)ofSetWindowShape(640,480);
+    //バリア用のプレイヤー位置保存
+    before_player_y=player_y;
+    before_player_x=player_x;
 
     if (key == 'w') {
+        before_player_y=player_y;
         player_y -=BASE_COORD;
     }
 
     if (key == 's') {
+        before_player_y=player_y;
         player_y +=BASE_COORD;
     }
 
     if (key == 'a') {
+        before_player_x=player_x;
         player_x -=BASE_COORD;
     }
     if (key == 'd') {
+        before_player_x=player_x;
         player_x +=BASE_COORD;
     }
+
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-    bool_keyReleased = true;
+    bool_keyReleased = true;//連続移動できないようにする
 
 }
 
