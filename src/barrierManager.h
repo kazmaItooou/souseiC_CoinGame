@@ -4,6 +4,9 @@
 
 
 class barrierManager {
+private:
+    ofSoundPlayer barrierSetSound;
+    ofSoundPlayer barrierKnockedSound;
 public:
     int BASE_CORD = 40;
     barrierManager();

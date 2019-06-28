@@ -102,7 +102,12 @@ void ofApp::update(){
             }
         }
     }
-    //----------------------------------------------
+    //barrierとの接触
+    if(bM.isbarrierTouchedtoPlayer(player_x_cache ,player_y_cache)){
+        player_y=before_player_y;
+        player_x=before_player_x;
+    }
+
     if(pointCnt>=999){pointCnt=999;}//999ポイントがカンスト
 }
 
@@ -124,6 +129,8 @@ void ofApp::draw(){
             ofSetColor(255,255,255);
         }
     }
+    //barrierオブジェクト
+    bM.draw();
     //---------------------------------------------
     //Coinオブジェクト
 
@@ -157,21 +164,27 @@ void ofApp::keyPressed(int key){
     if(!bool_keyReleased) return;
     if(bool_keyReleased)bool_keyReleased= false;
     if(key==1)ofSetWindowShape(640,480);
-
+        before_player_y=player_y;
+        before_player_x=player_x;
     if (key == 'w') {
+        before_player_y=player_y;
         player_y -=BASE_COORD;
     }
 
     if (key == 's') {
+        before_player_y=player_y;
         player_y +=BASE_COORD;
     }
 
     if (key == 'a') {
+        before_player_x=player_x;
         player_x -=BASE_COORD;
     }
     if (key == 'd') {
+        before_player_x=player_x;
         player_x +=BASE_COORD;
     }
+
 }
 
 //--------------------------------------------------------------

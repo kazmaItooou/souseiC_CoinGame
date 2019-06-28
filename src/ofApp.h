@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "Coin.h"
 #include "startobj.h"
+#include "barrierManager.h"
 #define COIN_NUM 5
 class ofApp : public ofBaseApp{
 	public:
@@ -41,6 +42,8 @@ class ofApp : public ofBaseApp{
         //---------------------------------------------
         //ゲーム内変数
         int BASE_COORD;//公倍数[1, 2, 4, 5, 8, 10, 16, 20, 32, 40, 80, 160]
+        int before_player_x;
+        int before_player_y;
         int player_x;
         int player_y;
         bool bool_keyReleased;
@@ -66,6 +69,8 @@ class ofApp : public ofBaseApp{
 
         //---------------------------------------------
 
+        //barrier
+        barrierManager bM;
 
 
 

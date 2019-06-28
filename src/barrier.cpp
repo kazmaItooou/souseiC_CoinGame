@@ -2,7 +2,7 @@
 
 barrier::barrier(){
     barrierImg.load("img/barrier.png");
-    barrierSetSound.load("sound/setbarrier");
+    barrierSetSound.load("sound/setbarrier.mp3");
     barrierKnockedSound.load("sound/knocked.mp3");
 }
 

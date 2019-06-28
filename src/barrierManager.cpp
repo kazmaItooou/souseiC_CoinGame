@@ -10,10 +10,12 @@ barrierManager::barrierManager(){
                        {7,8},{7,9},{8,9},{9,9},{9,8},//6
                        {4,2},{5,2},{4,3},//7
                        {11,2},{12,2},{12,3}};//8
-
-    for(int i=0;i<=31;i++){//バリアの位置をセット
+    barrierSetSound.load("sound/setbarrier.mp3");
+    barrierSetSound.play();
+    barrierKnockedSound.load("sound/knocked.mp3");
+    for(int i=0;i<=32;i++){//バリアの位置をセット
         barrier *b = new barrier;
-        b->setPos(barrierPos[i][1]*BASE_CORD,barrierPos[i][2]*BASE_CORD);
+        b->setPos(barrierPos[i][0]*BASE_CORD,barrierPos[i][1]*BASE_CORD);
         barrierList.push_back(b);
     }
 }
@@ -26,7 +28,7 @@ void barrierManager::draw(){
 }
 
 bool barrierManager::isbarrierTouchedtoPlayer(int Player_x,int Player_y){
-    for(int i=0;i<0;i++){
+    for(int i=0;i<barrierList.size();i++){
         if((barrierList.at(i)->getPos().x)==Player_x && (barrierList.at(i)->getPos().y)==Player_y){
             return true;
         }
