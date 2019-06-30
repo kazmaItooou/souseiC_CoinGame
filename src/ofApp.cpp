@@ -5,7 +5,7 @@ void ofApp::setup(){
     //その他
     ofBackground(0, 0, 0);//背景は黒
     ofSetRectMode(OF_RECTMODE_CENTER);
-    countSound_end.load("sound/endcount.wav");
+    countSound_end.load("sound/endcount.mp3");
     //---------------------------------------------
     //フォント
     ofTrueTypeFontSettings settings("font/PixelMplus12-Regular.ttf",30);//設定一式を納めるインスタンス

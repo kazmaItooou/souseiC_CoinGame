@@ -7,17 +7,25 @@ void Coin::setPosRand(){
     int x = ofRandom(1,15);
     int y = ofRandom(1,11);
     bool_touchingBarrier=false;
-    barrierManager bM(1);
 
-    for(int i=0;i<bM.getBarrierNum();i++){
-        if(bM.isbarrierPos(x,y)){
-            bool_touchingBarrier=true;
-            cout << "coin touched barrier. "<< i << endl;
-            break;
-        }
-    }
+//    if(bM->isbarrierPos(x,y)){
+//        bool_touchingBarrier=true;
+//        cout << "coin touched barrier. " << endl;
+//    }
+
+
+//    for(int i=0;i<BARRIER_NUM;i++){
+//        if(x==barrierPos[i][0] && y==barrierPos[i][1]){
+//            bool_touchingBarrier=true;
+//            cout << "coin touched barrier. " << i<< endl;
+//            break;
+//        }
+//    }
+
+
+
     if(bool_touchingBarrier){
-        setPosRand();
+        //setPosRand();
     }
     Pos_x = x*BASE_CORD;
     Pos_y = y*BASE_CORD;

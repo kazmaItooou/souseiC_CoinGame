@@ -15,7 +15,7 @@ barrierManager::barrierManager(){
     cout << "barrierManager constructor loaded"<< endl;
 }
 barrierManager::barrierManager(int Coin){
-
+     cout << "barrierManager constructor for Coin class loaded"<< endl;
 }
 
 void barrierManager::draw(){
