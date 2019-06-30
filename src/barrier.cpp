@@ -2,6 +2,7 @@
 
 barrier::barrier(){
     barrierImg.load("img/barrier.png");
+    cout << "barrier constructor loaded"<< endl;
 }
 
 void barrier::setPos(int x, int y){

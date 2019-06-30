@@ -105,7 +105,7 @@ void ofApp::update(){
 
                     if(coinList_p[i]!=coinList_p[j]){
                         coinList_p[i]->setPosRand();
-                        cout << "kasanatta" <<endl;
+                        cout << "coin touched other coin" <<endl;
                     }
                 }
             }
