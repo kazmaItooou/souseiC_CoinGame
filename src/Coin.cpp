@@ -6,26 +6,12 @@ void Coin::setPos(float x, float y){
 void Coin::setPosRand(){
     int x = ofRandom(1,15);
     int y = ofRandom(1,11);
-    bool_touchingBarrier=false;
-
-//    if(bM->isbarrierPos(x,y)){
-//        bool_touchingBarrier=true;
-//        cout << "coin touched barrier. " << endl;
-//    }
-
-
-//    for(int i=0;i<BARRIER_NUM;i++){
-//        if(x==barrierPos[i][0] && y==barrierPos[i][1]){
-//            bool_touchingBarrier=true;
-//            cout << "coin touched barrier. " << i<< endl;
-//            break;
-//        }
-//    }
-
-
-
-    if(bool_touchingBarrier){
-        //setPosRand();
+    for(int i=0;i<=32;i++){
+        if(x==barrierPos[i][1] && y==barrierPos[i][2]){
+            cout << "coin == barrier" << endl;
+            setPosRand();
+            break;
+        }
     }
     Pos_x = x*BASE_CORD;
     Pos_y = y*BASE_CORD;
