@@ -23,18 +23,24 @@ CoinManager::CoinManager(){
 
 void CoinManager::draw(){
     for(int i=0;i<=COIN_NUM;++i){
-        CoinList[i]->draw();
-    }
-
-    for(int i=0;i<=COIN_NUM;++i){
+        //コインが他のコインと重なってるかチェック
         for(int j=i+1;j<=COIN_NUM;++j){
-            if((CoinList[i]->getCoinPos().x==CoinList[j]->getCoinPos().x &&
-                    CoinList[i]->getCoinPos().y==CoinList[j]->getCoinPos().y) ||
-                    //コインがバリアと重なってるかチェック
-                    barrierManagerInstance.isbarrierTouchedtoPlayer(CoinList[i]->getCoinPos().x,CoinList[i]->getCoinPos().y)){
+            while((CoinList[i]->getCoinPos().x==CoinList[j]->getCoinPos().x &&
+                    CoinList[i]->getCoinPos().y==CoinList[j]->getCoinPos().y)){
+                CoinList[i]->setPosRand();
+                cout << "coin ["<< i << "] is touched other coin"<< endl;
 
             }
         }
+        //コインがバリアと重なってるかチェック
+        while(barrierManagerInstance.isbarrierTouchedtoPlayer(CoinList[i]->getCoinPos().x,CoinList[i]->getCoinPos().y)){
+            CoinList[i]->setPosRand();
+            cout << "coin ["<< i << "] is touched other barrier"<< endl;
+        }
+    }
+
+    for(int i=0;i<=COIN_NUM;++i){
+        CoinList[i]->draw();
     }
 }
 

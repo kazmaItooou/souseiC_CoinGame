@@ -5,12 +5,12 @@ barrierManager::barrierManager(){
     //バリア位置
     barrierSetSound.load("sound/setbarrier.mp3");
     barrierTouchSound.load("sound/knocked.mp3");
-    for(int ij=0;ij<BARRIER_NUM;ij++){//バリアの位置をセット
+    for(int i=0;i<BARRIER_NUM;i++){//バリアの位置をセット
         barrier *b = new barrier;
-        b->setPos(barrierPos[ij][0]*BASE_CORD,barrierPos[ij][1]*BASE_CORD);
+        b->setPos(barrierPos[i][0]*BASE_CORD,barrierPos[i][1]*BASE_CORD);
         barrierList.push_back(b);
         cout << "barrierPos seted"<< endl;
-        cout << "["<<ij<< "]"<< barrierPos[ij][0] <<","<< barrierPos[ij][1] << endl;
+        cout << "["<<i<< "]"<< barrierPos[i][0] <<","<< barrierPos[i][1] << endl;
     }
     cout << "barrierManager constructor loaded"<< endl;
 }

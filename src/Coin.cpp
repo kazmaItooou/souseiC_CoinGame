@@ -1,4 +1,10 @@
 #include "Coin.h"
+
+Coin::Coin(){   //コンストラクタ
+    countSound.load("sound/point.mp3");
+    Pos_x=0;
+    Pos_y=0;
+}
 void Coin::setPos(float x, float y){
     Pos_x = x;
     Pos_y = y;
@@ -6,13 +12,6 @@ void Coin::setPos(float x, float y){
 void Coin::setPosRand(){
     int x = ofRandom(1,15);
     int y = ofRandom(1,11);
-    for(int i=0;i<=32;i++){
-        if(x==barrierPos[i][1] && y==barrierPos[i][2]){
-            cout << "coin == barrier" << endl;
-            setPosRand();
-            break;
-        }
-    }
     Pos_x = x*BASE_CORD;
     Pos_y = y*BASE_CORD;
 }
@@ -51,7 +50,7 @@ ofVec2f Coin::getCoinPos(){
 int Coin::checkGetCoin(int player_x, int player_y){
     if(Pos_x== player_x && Pos_y== player_y){
         setPosRand();
-        std::cout << "coin move" << std::endl;
+        cout << "coin move" << std::endl;
         countSound.play();
         return point;
     }

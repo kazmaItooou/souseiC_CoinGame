@@ -20,27 +20,11 @@ void ofApp::setup(){
     //---------------------------------------------
     //ゲーム内変数
     BASE_COORD = 40;//xとyの公倍数[1, 2, 4, 5, 8, 10, 16, 20, 32, 40, 80, 160]
-    playerImg.load("img/player.png");
     gndImg.load("img/gnd.png");
     underBoxImg.load("img/underBox.png");
     underBox2Img.load("img/underBox2.png");
-    player_x=coord(9);
-    player_y=coord(7);
     //ポイント
     pointCnt=0;
-    //---------------------------------------------
-//    //Coinオブジェクト
-//    for(int i=0;i<=COIN_NUM;++i){
-//        coinList_p[i]=new Coin;
-//        coinList_p[i]->setPosRand();
-//        coinList_p[i]->setPoint(5*(i+1));
-//    }
-//    coinList_p[0]->setImage("img/coin/copper.png");
-//    coinList_p[1]->setImage("img/coin/silver.png");
-//    coinList_p[2]->setImage("img/coin/gold.png");
-//    coinList_p[3]->setImage("img/coin/red.png");
-//    coinList_p[4]->setImage("img/coin/green.png");
-//    coinList_p[5]->setImage("img/coin/blue.png");
     //---------------------------------------------
     //バリア
     bool_bM=false;
@@ -80,46 +64,25 @@ void ofApp::update(){
             return;
         }
     }
+    if (PlayerInstance.getPos().x<=coord(0)){PlayerInstance.setPos_x(1);}
+    if (PlayerInstance.getPos().x>=coord(16)){PlayerInstance.setPos_x(15);}
 
-    if (player_x<=coord(0)){player_x= coord(1);}
-    if (player_x>=coord(16)){player_x= coord(15);}
-
-    if (player_y<=coord(0)){player_y= coord(1);}
-    if (player_y>=coord(12)){player_y= coord(11);}
+    if (PlayerInstance.getPos().y<=coord(0)){PlayerInstance.setPos_y(1);}
+    if (PlayerInstance.getPos().y>=coord(12)){PlayerInstance.setPos_y(11);}
 
     //----------------------------------------------
     //コインの位置
     //yクラッシュするのでx ,yのcacheを作ることで改善
-    int player_y_cache=player_y;
-    int player_x_cache=player_x;
+    int player_y_cache=PlayerInstance.getPos().y;
+    int player_x_cache=PlayerInstance.getPos().x;
 
     int point_cache=CoinMamagerInstance.checkGetCoin(player_x_cache,player_y_cache);
     pointCnt+=point_cache;
-//    for(int i=0;i<=COIN_NUM;++i){
-//        int point_cache=coinList_p[i]->checkGetCoin(player_x_cache,player_y_cache);
-//        pointCnt+=point_cache;
 
-//        if(point_cache>0){//こいんがかさならなくする
-//            for(int j=0;j<=COIN_NUM;++j){
-
-//                if((coinList_p[i]->Pos_x==coinList_p[j]->Pos_x &&
-//                   coinList_p[i]->Pos_y==coinList_p[j]->Pos_y) ||
-//                        (bM.isbarrierTouchedtoPlayer(coinList_p[i]->Pos_x ,coinList_p[i]->Pos_y))){
-
-//                    if(coinList_p[i]!=coinList_p[j]){
-//                        coinList_p[i]->setPosRand();
-//                        cout << "coin touched other coin" <<endl;
-//                    }
-//                }
-//            }
-//        }
-
-
-//    }
     //barrierとの接触
     if(bM.isbarrierTouchedtoPlayer(player_x_cache ,player_y_cache) && bool_bM){
-        player_y=before_player_y;
-        player_x=before_player_x;
+        PlayerInstance.setPos_y(before_player_y);
+        PlayerInstance.setPos_x(before_player_x);
         bM.playTouchSound();
     }
 
@@ -157,15 +120,12 @@ void ofApp::draw(){
     //barrierオブジェクト
     if(bool_bM){bM.draw();}
 
-//    //Coinオブジェクト
-//    for(int i=0;i<=COIN_NUM;++i){
-//        coinList_p[i]->draw();
-//    }
+    //コインマネージャでコインを描画
     CoinMamagerInstance.draw();
 
     //プレイヤー
-    playerImg.draw(player_x, player_y);
-
+    //playerImg.draw(player_x, player_y);
+    PlayerInstance.draw();
     //スタートボタン
     if(startbutton.isEnable){startbutton.Draw();}
 
@@ -192,26 +152,22 @@ void ofApp::keyPressed(int key){
     if(bool_keyReleased)bool_keyReleased= false;
     if(key==1)ofSetWindowShape(640,480);
     //バリア用のプレイヤー位置保存
-    before_player_y=player_y;
-    before_player_x=player_x;
+    before_player_y=PlayerInstance.getPos().y;
+    before_player_x=PlayerInstance.getPos().x;
 
     if (key == 'w') {
-        before_player_y=player_y;
-        player_y -=BASE_COORD;
+        PlayerInstance.setPos_y(before_player_y-BASE_COORD);
     }
 
     if (key == 's') {
-        before_player_y=player_y;
-        player_y +=BASE_COORD;
+        PlayerInstance.setPos_y(before_player_y+BASE_COORD);
     }
 
     if (key == 'a') {
-        before_player_x=player_x;
-        player_x -=BASE_COORD;
+        PlayerInstance.setPos_x(before_player_x-BASE_COORD);
     }
     if (key == 'd') {
-        before_player_x=player_x;
-        player_x +=BASE_COORD;
+        PlayerInstance.setPos_x(before_player_x+BASE_COORD);
     }
 
 }
