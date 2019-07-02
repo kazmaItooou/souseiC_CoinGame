@@ -23,7 +23,6 @@ public:
     void draw();
     void playSetSound();
     void playTouchSound();
-    int getBarrierNum();
     bool isbarrierPos(int x,int y);
     bool isbarrierTouchedtoPlayer(int Player_x,int Player_y);//プレイヤー等がバリアと重なっているか真偽を返す
     };

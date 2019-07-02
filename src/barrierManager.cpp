@@ -33,10 +33,6 @@ void barrierManager::playTouchSound(){
     barrierTouchSound.play();
 }
 
-int barrierManager::getBarrierNum(){
-    return BARRIER_NUM;
-}
-
 bool barrierManager::isbarrierPos(int x,int y){
     for(int i=0;i<BARRIER_NUM;i++){
         if(x==barrierPos[i][0] && y==barrierPos[i][1]){

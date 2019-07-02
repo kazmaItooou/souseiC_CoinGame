@@ -24,7 +24,6 @@ public:    //公開
         countSound.load("sound/point.mp3");
         Pos_x=0;
         Pos_y=0;
-        //bM= new barrierManager(1);
     }
     //プロパティ
     float Pos_x; //位置x
@@ -36,6 +35,5 @@ public:    //公開
     void setPoint(int value);
     void setImage(string path_on_img);
     void draw();
-
     int checkGetCoin(int player_x, int player_y);
 };
