@@ -29,18 +29,18 @@ void ofApp::setup(){
     //ポイント
     pointCnt=0;
     //---------------------------------------------
-    //Coinオブジェクト
-    for(int i=0;i<=COIN_NUM;++i){
-        coinList_p[i]=new Coin;
-        coinList_p[i]->setPosRand();
-        coinList_p[i]->setPoint(5*(i+1));
-    }
-    coinList_p[0]->setImage("img/coin/copper.png");
-    coinList_p[1]->setImage("img/coin/silver.png");
-    coinList_p[2]->setImage("img/coin/gold.png");
-    coinList_p[3]->setImage("img/coin/red.png");
-    coinList_p[4]->setImage("img/coin/green.png");
-    coinList_p[5]->setImage("img/coin/blue.png");
+//    //Coinオブジェクト
+//    for(int i=0;i<=COIN_NUM;++i){
+//        coinList_p[i]=new Coin;
+//        coinList_p[i]->setPosRand();
+//        coinList_p[i]->setPoint(5*(i+1));
+//    }
+//    coinList_p[0]->setImage("img/coin/copper.png");
+//    coinList_p[1]->setImage("img/coin/silver.png");
+//    coinList_p[2]->setImage("img/coin/gold.png");
+//    coinList_p[3]->setImage("img/coin/red.png");
+//    coinList_p[4]->setImage("img/coin/green.png");
+//    coinList_p[5]->setImage("img/coin/blue.png");
     //---------------------------------------------
     //バリア
     bool_bM=false;
@@ -92,27 +92,30 @@ void ofApp::update(){
     //yクラッシュするのでx ,yのcacheを作ることで改善
     int player_y_cache=player_y;
     int player_x_cache=player_x;
-    for(int i=0;i<=COIN_NUM;++i){
-        int point_cache=coinList_p[i]->checkGetCoin(player_x_cache,player_y_cache);
-        pointCnt+=point_cache;
 
-        if(point_cache>0){//こいんがかさならなくする
-            for(int j=0;j<=COIN_NUM;++j){
+    int point_cache=CoinMamagerInstance.checkGetCoin(player_x_cache,player_y_cache);
+    pointCnt+=point_cache;
+//    for(int i=0;i<=COIN_NUM;++i){
+//        int point_cache=coinList_p[i]->checkGetCoin(player_x_cache,player_y_cache);
+//        pointCnt+=point_cache;
 
-                if((coinList_p[i]->Pos_x==coinList_p[j]->Pos_x &&
-                   coinList_p[i]->Pos_y==coinList_p[j]->Pos_y) ||
-                        (bM.isbarrierTouchedtoPlayer(coinList_p[i]->Pos_x ,coinList_p[i]->Pos_y))){
+//        if(point_cache>0){//こいんがかさならなくする
+//            for(int j=0;j<=COIN_NUM;++j){
 
-                    if(coinList_p[i]!=coinList_p[j]){
-                        coinList_p[i]->setPosRand();
-                        cout << "coin touched other coin" <<endl;
-                    }
-                }
-            }
-        }
+//                if((coinList_p[i]->Pos_x==coinList_p[j]->Pos_x &&
+//                   coinList_p[i]->Pos_y==coinList_p[j]->Pos_y) ||
+//                        (bM.isbarrierTouchedtoPlayer(coinList_p[i]->Pos_x ,coinList_p[i]->Pos_y))){
+
+//                    if(coinList_p[i]!=coinList_p[j]){
+//                        coinList_p[i]->setPosRand();
+//                        cout << "coin touched other coin" <<endl;
+//                    }
+//                }
+//            }
+//        }
 
 
-    }
+//    }
     //barrierとの接触
     if(bM.isbarrierTouchedtoPlayer(player_x_cache ,player_y_cache) && bool_bM){
         player_y=before_player_y;
@@ -154,10 +157,11 @@ void ofApp::draw(){
     //barrierオブジェクト
     if(bool_bM){bM.draw();}
 
-    //Coinオブジェクト
-    for(int i=0;i<=COIN_NUM;++i){
-        coinList_p[i]->draw();
-    }
+//    //Coinオブジェクト
+//    for(int i=0;i<=COIN_NUM;++i){
+//        coinList_p[i]->draw();
+//    }
+    CoinMamagerInstance.draw();
 
     //プレイヤー
     playerImg.draw(player_x, player_y);

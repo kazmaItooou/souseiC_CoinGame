@@ -33,7 +33,9 @@ public:    //公開
     void setPos(float x, float y);
     void setPosRand();
     void setPoint(int value);
+    int getPoint();
     void setImage(string path_on_img);
     void draw();
+    ofVec2f getCoinPos();
     int checkGetCoin(int player_x, int player_y);
 };

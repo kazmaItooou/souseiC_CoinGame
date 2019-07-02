@@ -1,9 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
-#include "Coin.h"
 #include "startobj.h"
 #include "barrierManager.h"
+#include "CoinManager.h"
 #define COIN_NUM 5
 class ofApp : public ofBaseApp{
 	public:
@@ -61,12 +61,10 @@ class ofApp : public ofBaseApp{
         //---------------------------------------------
         //---------------------------------------------
         //Coinオブジェクト
-        //vector<Coin*> coinList;
-        Coin *coinList_p[COIN_NUM];
-        Coin coin_gold,coin_silver,coin_copper,coin_green,coin_blue,coin_red;
-//        coins[0]="coin_gold";
-//        coins[1]="coin_silver";
+//        Coin *coinList_p[COIN_NUM];
+//        Coin coin_gold,coin_silver,coin_copper,coin_green,coin_blue,coin_red;
 
+        CoinManager CoinMamagerInstance;
         //---------------------------------------------
 
         //barrier
