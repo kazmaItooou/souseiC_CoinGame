@@ -14,6 +14,10 @@ Project{
         files: [
             "src/Coin.cpp",
             "src/Coin.h",
+            "src/CoinManager.cpp",
+            "src/CoinManager.h",
+            "src/Player.cpp",
+            "src/Player.h",
             "src/barrier.cpp",
             "src/barrier.h",
             "src/barrierManager.cpp",
