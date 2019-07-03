@@ -1,0 +1,24 @@
+@startuml
+
+object Coin {
+  coinImg
+  Pos_x
+  Pos_y
+  setPos(float x, float y)
+  setPosRand()
+  setPoint(int value)
+  getPoint()
+  getCoinPos()
+  setImage(string path_on_img)
+  draw()
+  checkGetCoin(int player_x, int player_y)
+}
+
+object CoinManager {
+  <Coin *> CoinList
+  draw()
+  checkGetCoin(int player_x, int player_y)
+}
+
+CoinManager<|--Coin
+@enduml
