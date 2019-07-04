@@ -64,6 +64,8 @@ void ofApp::update(){
             return;
         }
     }
+
+    //プレイヤーをステージ外に出さないようにする
     if (PlayerInstance.getPos().x<=coord(0)){PlayerInstance.setPos_x(1);}
     if (PlayerInstance.getPos().x>=coord(16)){PlayerInstance.setPos_x(15);}
 
@@ -124,7 +126,6 @@ void ofApp::draw(){
     CoinMamagerInstance.draw();
 
     //プレイヤー
-    //playerImg.draw(player_x, player_y);
     PlayerInstance.draw();
     //スタートボタン
     if(startbutton.isEnable){startbutton.Draw();}

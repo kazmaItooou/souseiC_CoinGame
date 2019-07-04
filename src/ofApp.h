@@ -27,11 +27,6 @@ class ofApp : public ofBaseApp{
         //その他
         ofTrueTypeFont std_font;
         startobj startbutton;
-        //---------------------------------------------
-//        //カウントダウン
-//        bool next_Countdown;
-//        int minute_Countdown;
-//        int second_Countdown;
         //--------------------------------------------
         //終了
         bool endtimerenable;
@@ -45,9 +40,6 @@ class ofApp : public ofBaseApp{
         int BASE_COORD;//公倍数[1, 2, 4, 5, 8, 10, 16, 20, 32, 40, 80, 160]
         int before_player_x;
         int before_player_y;
-        int player_x;
-        int player_y;
-
         Player PlayerInstance;
 
         bool bool_keyReleased;
@@ -65,7 +57,6 @@ class ofApp : public ofBaseApp{
 
         //Coinオブジェクト
         CoinManager CoinMamagerInstance;
-        //---------------------------------------------
 
         //barrier
         barrierManager bM;
