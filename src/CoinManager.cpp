@@ -56,3 +56,14 @@ int CoinManager::checkGetCoin(int player_x, int player_y){
     }
     return 0;
 }
+
+int CoinManager::checkGetCoin_type(int player_x, int player_y){
+    for(int i=0;i<=COIN_NUM;++i){
+        if(CoinList[i]->getCoinPos().x== player_x &&
+            CoinList[i]->getCoinPos().y== player_y){
+            countSound.play();
+            return i;
+        }
+    }
+    return 100;
+}

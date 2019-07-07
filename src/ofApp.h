@@ -52,9 +52,10 @@ class ofApp : public ofBaseApp{
             return BASE_COORD*val;
         }
 
+        //ポイントカウント
         int pointCnt;
         char pointCntStr[3];
-
+        int pointCnt_type[COIN_NUM];
         //Coinオブジェクト
         CoinManager CoinMamagerInstance;
 

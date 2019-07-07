@@ -25,6 +25,9 @@ void ofApp::setup(){
     underBox2Img.load("img/underBox2.png");
     //ポイント
     pointCnt=0;
+    for(int i=0;i<=COIN_NUM;i++){
+        pointCnt_type[i];
+    }
     //---------------------------------------------
     //バリア
     bool_bM=false;
@@ -80,6 +83,12 @@ void ofApp::update(){
 
     int point_cache=CoinMamagerInstance.checkGetCoin(player_x_cache,player_y_cache);
     pointCnt+=point_cache;
+
+    if(CoinMamagerInstance.checkGetCoin_type(player_x_cache,player_y_cache)!=100){
+        int i=CoinMamagerInstance.checkGetCoin_type(player_x_cache,player_y_cache);
+        pointCnt_type[i]++;
+    }
+
 
     //barrierとの接触
     if(bM.isbarrierTouchedtoPlayer(player_x_cache ,player_y_cache) && bool_bM){
@@ -138,10 +147,17 @@ void ofApp::draw(){
         underBox2Img.draw(coord(2)-20, ofGetHeight()-60,120,120);
     ofPopMatrix();
 
+    //ポイント表示
     ofSetColor(0,0,0,255);
     std_font.drawString("POINT", 12, ofGetHeight()-70);
     sprintf(pointCntStr,"%3d",pointCnt);
     std_font.drawString(pointCntStr, 30, ofGetHeight()-30);
+    ofSetColor(255,255,255,255);
+
+    ofSetColor(0,0,0,255);
+    std_font.drawString("copper", 130, ofGetHeight()-70);
+    sprintf(pointCntStr,"%3d",pointCnt_type[0]);
+    std_font.drawString(pointCntStr, 120, ofGetHeight()-30);
     ofSetColor(255,255,255,255);
 
 

@@ -13,5 +13,6 @@ public:
     vector <Coin *> CoinList;
     void draw();
     int checkGetCoin(int player_x, int player_y);
+    int checkGetCoin_type(int player_x, int player_y);
 };
 
