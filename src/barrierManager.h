@@ -18,7 +18,6 @@ private:
                        {11,10},{12,9},{12,10}};//8
 public:
     barrierManager();
-    barrierManager(int Coin);
     vector <barrier *> barrierList;
     void draw();
     void playSetSound();
