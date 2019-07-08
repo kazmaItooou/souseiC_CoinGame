@@ -23,10 +23,21 @@ void ofApp::setup(){
     gndImg.load("img/gnd.png");
     underBoxImg.load("img/underBox.png");
     underBox2Img.load("img/underBox2.png");
+    for(int i=0;i<=COIN_NUM;++i){
+        ofImage *image =new ofImage;
+        coinImage.push_back(image);
+    }
+    coinImage[0]->load("img/coin/copper.png");
+    coinImage[1]->load("img/coin/silver.png");
+    coinImage[2]->load("img/coin/gold.png");
+    coinImage[3]->load("img/coin/red.png");
+    coinImage[4]->load("img/coin/green.png");
+    coinImage[5]->load("img/coin/blue.png");
+
     //ポイント
     pointCnt=0;
     for(int i=0;i<=COIN_NUM;i++){
-        pointCnt_type[i];
+        pointCnt_type[i]=0;
     }
     //---------------------------------------------
     //バリア
@@ -63,6 +74,9 @@ void ofApp::update(){
         if(minute_end+1==ofGetMinutes() && second_end==ofGetSeconds()){
             startbutton.isEnable=true;
             pointCnt=0;
+            for(int i=0;i<=COIN_NUM;i++){
+                pointCnt_type[i]=0;
+            }
             bool_bM_sound=true;
             return;
         }
@@ -84,9 +98,9 @@ void ofApp::update(){
     int point_cache=CoinMamagerInstance.checkGetCoin(player_x_cache,player_y_cache);
     pointCnt+=point_cache;
 
-    if(CoinMamagerInstance.checkGetCoin_type(player_x_cache,player_y_cache)!=100){
-        int i=CoinMamagerInstance.checkGetCoin_type(player_x_cache,player_y_cache);
-        pointCnt_type[i]++;
+    if(point_cache>0){
+        int Coin_type=CoinMamagerInstance.GetCoinType();
+        pointCnt_type[Coin_type]++;
     }
 
 
@@ -155,9 +169,24 @@ void ofApp::draw(){
     ofSetColor(255,255,255,255);
 
     ofSetColor(0,0,0,255);
-    std_font.drawString("copper", 130, ofGetHeight()-70);
-    sprintf(pointCntStr,"%3d",pointCnt_type[0]);
-    std_font.drawString(pointCntStr, 120, ofGetHeight()-30);
+
+    int pointCountPos=150;
+    for(int i=0;i<=COIN_NUM;i++){
+        ofPushMatrix();//座標系退避
+        ofPushStyle();//表示スタイル退避
+          ofSetColor(255,255,255);
+          ofTranslate(pointCountPos+40, ofGetHeight()-80);//座標系変換
+          coinImage[i]->draw(0,0,40,40);
+          CoinMamagerInstance.getCoinImage(i).draw(0,0,40,40);
+
+        ofPopStyle();
+        ofPopMatrix();
+
+        ofSetColor(0,0,0,255);
+        sprintf(pointCntStr,"%3d",pointCnt_type[i]);
+        std_font.drawString(pointCntStr, pointCountPos, ofGetHeight()-30);
+        pointCountPos+=80;
+    }
     ofSetColor(255,255,255,255);
 
 

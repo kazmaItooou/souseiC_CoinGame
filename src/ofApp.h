@@ -41,7 +41,8 @@ class ofApp : public ofBaseApp{
         int before_player_x;
         int before_player_y;
         Player PlayerInstance;
-
+        //ofImage *coinImage[5];
+        vector <ofImage *> coinImage;
         bool bool_keyReleased;
         ofImage playerImg;
         ofImage gndImg;

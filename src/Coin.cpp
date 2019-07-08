@@ -45,6 +45,9 @@ ofVec2f Coin::getCoinPos(){
     p.y=Pos_y;
     return p;
 }
+ofImage Coin::getImage(){
+    return coinImg;
+}
 
 //コインを手に入れたとき所定の処理をしてポイントを返す
 int Coin::checkGetCoin(int player_x, int player_y){

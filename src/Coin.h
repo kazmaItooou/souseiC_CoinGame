@@ -20,6 +20,7 @@ public:    //公開
     void setPosRand();
     void setPoint(int value);
     int getPoint();
+    ofImage getImage();
     void setImage(string path_on_img);
     void draw();
     ofVec2f getCoinPos();

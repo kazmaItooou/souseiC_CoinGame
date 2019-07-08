@@ -43,6 +43,9 @@ void CoinManager::draw(){
         CoinList[i]->draw();
     }
 }
+ofImage CoinManager::getCoinImage(int i){
+    return  CoinList[i]->getImage();
+}
 
 int CoinManager::checkGetCoin(int player_x, int player_y){
     for(int i=0;i<=COIN_NUM;++i){
@@ -51,19 +54,15 @@ int CoinManager::checkGetCoin(int player_x, int player_y){
             CoinList[i]->setPosRand();
             std::cout << "coin move " << i << std::endl;
             countSound.play();
+            coin_type=i;
             return CoinList[i]->getPoint();
         }
     }
     return 0;
 }
 
-int CoinManager::checkGetCoin_type(int player_x, int player_y){
-    for(int i=0;i<=COIN_NUM;++i){
-        if(CoinList[i]->getCoinPos().x== player_x &&
-            CoinList[i]->getCoinPos().y== player_y){
-            countSound.play();
-            return i;
-        }
-    }
-    return 100;
+int CoinManager::GetCoinType(){
+    return coin_type;
 }
+
+
