@@ -41,8 +41,6 @@ class ofApp : public ofBaseApp{
         int before_player_x;
         int before_player_y;
         Player PlayerInstance;
-        //ofImage *coinImage[5];
-        vector <ofImage *> coinImage;
         bool bool_keyReleased;
         ofImage playerImg;
         ofImage gndImg;
@@ -56,7 +54,7 @@ class ofApp : public ofBaseApp{
         //ポイントカウント
         int pointCnt;
         char pointCntStr[3];
-        int pointCnt_type[COIN_NUM];
+        int pointCnt_type[COIN_NUM+1];
         //Coinオブジェクト
         CoinManager CoinMamagerInstance;
 

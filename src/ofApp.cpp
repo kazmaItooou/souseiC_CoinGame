@@ -23,16 +23,6 @@ void ofApp::setup(){
     gndImg.load("img/gnd.png");
     underBoxImg.load("img/underBox.png");
     underBox2Img.load("img/underBox2.png");
-    for(int i=0;i<=COIN_NUM;++i){
-        ofImage *image =new ofImage;
-        coinImage.push_back(image);
-    }
-    coinImage[0]->load("img/coin/copper.png");
-    coinImage[1]->load("img/coin/silver.png");
-    coinImage[2]->load("img/coin/gold.png");
-    coinImage[3]->load("img/coin/red.png");
-    coinImage[4]->load("img/coin/green.png");
-    coinImage[5]->load("img/coin/blue.png");
 
     //ポイント
     pointCnt=0;
@@ -83,11 +73,11 @@ void ofApp::update(){
     }
 
     //プレイヤーをステージ外に出さないようにする
-    if (PlayerInstance.getPos().x<=coord(0)){PlayerInstance.setPos_x(1);}
-    if (PlayerInstance.getPos().x>=coord(16)){PlayerInstance.setPos_x(15);}
+    if (PlayerInstance.getPos().x<=coord(0)){PlayerInstance.setPos_x(coord(1));}
+    if (PlayerInstance.getPos().x>=coord(16)){PlayerInstance.setPos_x(coord(15));}
 
-    if (PlayerInstance.getPos().y<=coord(0)){PlayerInstance.setPos_y(1);}
-    if (PlayerInstance.getPos().y>=coord(12)){PlayerInstance.setPos_y(11);}
+    if (PlayerInstance.getPos().y<=coord(0)){PlayerInstance.setPos_y(coord(1));}
+    if (PlayerInstance.getPos().y>=coord(12)){PlayerInstance.setPos_y(coord(11));}
 
     //----------------------------------------------
     //コインの位置
@@ -176,13 +166,12 @@ void ofApp::draw(){
         ofPushStyle();//表示スタイル退避
           ofSetColor(255,255,255);
           ofTranslate(pointCountPos+40, ofGetHeight()-80);//座標系変換
-          coinImage[i]->draw(0,0,40,40);
+          //coinImage[i]->draw(0,0,40,40);
           CoinMamagerInstance.getCoinImage(i).draw(0,0,40,40);
 
         ofPopStyle();
         ofPopMatrix();
-
-        ofSetColor(0,0,0,255);
+        memset( pointCntStr, 0, sizeof( pointCntStr ) );
         sprintf(pointCntStr,"%3d",pointCnt_type[i]);
         std_font.drawString(pointCntStr, pointCountPos, ofGetHeight()-30);
         pointCountPos+=80;
