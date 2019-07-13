@@ -23,8 +23,12 @@ void ofApp::setup(){
     gndImg.load("img/gnd.png");
     underBoxImg.load("img/underBox.png");
     underBox2Img.load("img/underBox2.png");
+
     //ポイント
     pointCnt=0;
+    for(int i=0;i<=COIN_NUM;i++){
+        pointCnt_type[i]=0;
+    }
     //---------------------------------------------
     //バリア
     bool_bM=false;
@@ -60,15 +64,20 @@ void ofApp::update(){
         if(minute_end+1==ofGetMinutes() && second_end==ofGetSeconds()){
             startbutton.isEnable=true;
             pointCnt=0;
+            for(int i=0;i<=COIN_NUM;i++){
+                pointCnt_type[i]=0;
+            }
             bool_bM_sound=true;
             return;
         }
     }
-    if (PlayerInstance.getPos().x<=coord(0)){PlayerInstance.setPos_x(1);}
-    if (PlayerInstance.getPos().x>=coord(16)){PlayerInstance.setPos_x(15);}
 
-    if (PlayerInstance.getPos().y<=coord(0)){PlayerInstance.setPos_y(1);}
-    if (PlayerInstance.getPos().y>=coord(12)){PlayerInstance.setPos_y(11);}
+    //プレイヤーをステージ外に出さないようにする
+    if (PlayerInstance.getPos().x<=coord(0)){PlayerInstance.setPos_x(coord(1));}
+    if (PlayerInstance.getPos().x>=coord(16)){PlayerInstance.setPos_x(coord(15));}
+
+    if (PlayerInstance.getPos().y<=coord(0)){PlayerInstance.setPos_y(coord(1));}
+    if (PlayerInstance.getPos().y>=coord(12)){PlayerInstance.setPos_y(coord(11));}
 
     //----------------------------------------------
     //コインの位置
@@ -78,6 +87,12 @@ void ofApp::update(){
 
     int point_cache=CoinMamagerInstance.checkGetCoin(player_x_cache,player_y_cache);
     pointCnt+=point_cache;
+
+    if(point_cache>0){
+        int Coin_type=CoinMamagerInstance.GetCoinType();
+        pointCnt_type[Coin_type]++;
+    }
+
 
     //barrierとの接触
     if(bM.isbarrierTouchedtoPlayer(player_x_cache ,player_y_cache) && bool_bM){
@@ -124,7 +139,6 @@ void ofApp::draw(){
     CoinMamagerInstance.draw();
 
     //プレイヤー
-    //playerImg.draw(player_x, player_y);
     PlayerInstance.draw();
     //スタートボタン
     if(startbutton.isEnable){startbutton.Draw();}
@@ -137,10 +151,31 @@ void ofApp::draw(){
         underBox2Img.draw(coord(2)-20, ofGetHeight()-60,120,120);
     ofPopMatrix();
 
+    //ポイント表示
     ofSetColor(0,0,0,255);
     std_font.drawString("POINT", 12, ofGetHeight()-70);
     sprintf(pointCntStr,"%3d",pointCnt);
     std_font.drawString(pointCntStr, 30, ofGetHeight()-30);
+    ofSetColor(255,255,255,255);
+
+    ofSetColor(0,0,0,255);
+
+    int pointCountPos=150;
+    for(int i=0;i<=COIN_NUM;i++){
+        ofPushMatrix();//座標系退避
+        ofPushStyle();//表示スタイル退避
+          ofSetColor(255,255,255);
+          ofTranslate(pointCountPos+40, ofGetHeight()-80);//座標系変換
+          //coinImage[i]->draw(0,0,40,40);
+          CoinMamagerInstance.getCoinImage(i).draw(0,0,40,40);
+
+        ofPopStyle();
+        ofPopMatrix();
+        memset( pointCntStr, 0, sizeof( pointCntStr ) );
+        sprintf(pointCntStr,"%3d",pointCnt_type[i]);
+        std_font.drawString(pointCntStr, pointCountPos, ofGetHeight()-30);
+        pointCountPos+=80;
+    }
     ofSetColor(255,255,255,255);
 
 
