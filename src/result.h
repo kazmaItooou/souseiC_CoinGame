@@ -6,9 +6,12 @@ private:
     void blur_draw(int blur_value, ofImage image);
     int update_timing;
     int image_flag;
+    int SystemTimeMillis;
+    int drawPointValue;
+    ofTrueTypeFont std_font;
 public:
     result();   //コンストラクタ
-    void draw(ofImage screenImg, bool *bool_OnResult, int before_keyPressed);
+    void draw(ofImage screenImg, bool *bool_OnResult, int before_keyPressed, int pointCnt);
     void update();
     ofShader shaderBlurX;
     ofShader shaderBlurY;

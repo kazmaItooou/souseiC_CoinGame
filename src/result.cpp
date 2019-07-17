@@ -1,8 +1,13 @@
 #include "result.h"
 
 result::result(){
+    ofTrueTypeFontSettings settings("font/PixelMplus12-Regular.ttf",30);//設定一式を納めるインスタンス
+    settings.addRanges(ofAlphabet::Latin);
+    settings.addRanges(ofAlphabet::Japanese);//日本語
+    std_font.load(settings); // 設定をロード
     update_timing=0;
     image_flag=0;
+    drawPointValue=0;
 #ifdef TARGET_OPENGLES
     shaderBlurX.load("shadersES2/shaderBlurX");
     shaderBlurY.load("shadersES2/shaderBlurY");
@@ -29,17 +34,37 @@ void result::update(){
     if(image_flag==1 && update_timing>0){
         update_timing--;
     }
-    cout<<update_timing<<endl;
+    //cout<<update_timing<<endl;
 }
-void result::draw(ofImage screenImg,bool *bool_OnResult, int before_keyPressed){
+void result::draw(ofImage screenImg,bool *bool_OnResult, int before_keyPressed,int pointCnt){
     if(image_flag==0){
         blur_draw(update_timing,screenImg);
+        SystemTimeMillis=ofGetSystemTimeMillis();
     }
     if(image_flag==1){
+        pointCnt=999;
         blur_draw(update_timing,backgroundImg);
-        //スコアとか追加する
-        if(update_timing==0 && before_keyPressed=='r'){
-            *bool_OnResult=false;
+        if(update_timing==0){
+            //スコアとか追加する
+            if(SystemTimeMillis+30<=ofGetSystemTimeMillis() && drawPointValue<pointCnt-5){
+                drawPointValue+=5;
+                SystemTimeMillis+=30;
+            }else if(SystemTimeMillis+30<=ofGetSystemTimeMillis()){
+                drawPointValue=pointCnt;
+            }
+
+            ofPushMatrix();//座標系退避
+            ofPushStyle();//表示スタイル退避
+            ofScale(3,3);
+              char pointCntStr[3]={};
+              sprintf(pointCntStr,"%3d",drawPointValue);
+              std_font.drawString(pointCntStr, ofGetWidth()/2, ofGetHeight()/2);
+            ofPopMatrix();//座標系退避
+            ofPopStyle();//表示スタイル退避
+
+            if(before_keyPressed=='r'){
+                *bool_OnResult=false;
+            }
         }
     }
 }

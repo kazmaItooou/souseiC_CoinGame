@@ -63,11 +63,18 @@ void ofApp::update(){
         //音を鳴らす
         if(second_tmp_end!=ofGetSeconds()){
             second_tmp_end=ofGetSeconds();
+            cout<<"counddown_end: " <<counddown_end <<endl;
             counddown_end--;
             if(counddown_end<=5){
                 countSound_end.play();
             }
         }
+//        //デバッグ用
+//        screenImg.grabScreen(0,0,ofGetWidth(),ofGetHeight());
+//        bool_OnResult=true;
+//        startbutton.isEnable=true;
+//        bool_bM_sound=true;
+        //---------------------
         if(minute_end+1==ofGetMinutes() && second_end==ofGetSeconds()){
             screenImg.grabScreen(0,0,ofGetWidth(),ofGetHeight());
             bool_OnResult=true;
@@ -76,7 +83,6 @@ void ofApp::update(){
             return;
         }
     }
-    cout<<"counddown_end: " <<counddown_end <<endl;
 
     //プレイヤーをステージ外に出さないようにする
     if (PlayerInstance.getPos().x<=coord(0)){PlayerInstance.setPos_x(coord(1));}
@@ -186,7 +192,7 @@ void ofApp::draw(){
     ofSetColor(255,255,255,255);
 
     if(bool_OnResult){
-        resultInstance.draw(screenImg,&bool_OnResult,before_keyPressed);
+        resultInstance.draw(screenImg,&bool_OnResult,before_keyPressed,pointCnt);
     }
 }
 
@@ -235,7 +241,9 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-    startbutton.mousePressed(x,y,button,&pointCnt,&pointCnt_type[0]);
+    if(!bool_OnResult){
+        startbutton.mousePressed(x,y,button,&pointCnt,&pointCnt_type[0]);
+    }
 }
 
 //--------------------------------------------------------------
