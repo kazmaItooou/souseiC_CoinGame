@@ -33,10 +33,17 @@ void ofApp::setup(){
     //バリア
     bool_bM=false;
     bool_bM_sound=true;
+    //result
+    bool_OnResult=false;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    //result
+    if(bool_OnResult){
+        resultInstance.update();
+    }
+
     //スタートボタンがONのときは常にminute_end、second_endに現在の時間を入れる。
     //そしてタイマーをOFFにし続ける。
     if(!startbutton.isEnable){
@@ -62,11 +69,14 @@ void ofApp::update(){
             }
         }
         if(minute_end+1==ofGetMinutes() && second_end==ofGetSeconds()){
+            screenImg.grabScreen(0,0,ofGetWidth(),ofGetHeight());
+            bool_OnResult=true;
             startbutton.isEnable=true;
             bool_bM_sound=true;
             return;
         }
     }
+    cout<<"counddown_end: " <<counddown_end <<endl;
 
     //プレイヤーをステージ外に出さないようにする
     if (PlayerInstance.getPos().x<=coord(0)){PlayerInstance.setPos_x(coord(1));}
@@ -108,6 +118,7 @@ void ofApp::update(){
     }else bool_bM=false;
 
     if(pointCnt>=999){pointCnt=999;}//999ポイントがカンスト
+
 }
 
 //--------------------------------------------------------------
@@ -174,11 +185,14 @@ void ofApp::draw(){
     }
     ofSetColor(255,255,255,255);
 
-
+    if(bool_OnResult){
+        resultInstance.draw(screenImg,&bool_OnResult,before_keyPressed);
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    before_keyPressed=key;
     if(!bool_keyReleased) return;//連続移動できないようにする
     if(bool_keyReleased)bool_keyReleased= false;
     if(key==1)ofSetWindowShape(640,480);

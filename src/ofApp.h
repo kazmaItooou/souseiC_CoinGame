@@ -5,6 +5,7 @@
 #include "barrierManager.h"
 #include "CoinManager.h"
 #include "Player.h"
+#include "result.h"
 #define COIN_NUM 5
 class ofApp : public ofBaseApp{
 	public:
@@ -40,6 +41,7 @@ class ofApp : public ofBaseApp{
         int BASE_COORD;//公倍数[1, 2, 4, 5, 8, 10, 16, 20, 32, 40, 80, 160]
         int before_player_x;
         int before_player_y;
+        int before_keyPressed;
         Player PlayerInstance;
         bool bool_keyReleased;
         ofImage playerImg;
@@ -62,6 +64,12 @@ class ofApp : public ofBaseApp{
         barrierManager bM;
         bool bool_bM;//バリアを発動するか
         bool bool_bM_sound;
+
+        //result
+        result resultInstance;
+        ofImage screenImg;
+        bool bool_OnResult;
+
 
 
 

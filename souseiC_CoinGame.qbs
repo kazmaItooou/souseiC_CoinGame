@@ -22,6 +22,8 @@ Project{
             "src/barrier.h",
             "src/barrierManager.cpp",
             "src/barrierManager.h",
+            "src/result.cpp",
+            "src/result.h",
             "src/startobj.cpp",
             "src/startobj.h",
             "src/main.cpp",
