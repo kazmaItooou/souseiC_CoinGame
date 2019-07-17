@@ -63,10 +63,6 @@ void ofApp::update(){
         }
         if(minute_end+1==ofGetMinutes() && second_end==ofGetSeconds()){
             startbutton.isEnable=true;
-            pointCnt=0;
-            for(int i=0;i<=COIN_NUM;i++){
-                pointCnt_type[i]=0;
-            }
             bool_bM_sound=true;
             return;
         }
@@ -225,7 +221,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-    startbutton.mousePressed(x,y,button);
+    startbutton.mousePressed(x,y,button,&pointCnt,&pointCnt_type[0]);
 }
 
 //--------------------------------------------------------------
