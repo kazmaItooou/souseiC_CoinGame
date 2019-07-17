@@ -8,6 +8,7 @@ result::result(){
     update_timing=0;
     image_flag=0;
     drawPointValue=0;
+    scalexy=3;
 #ifdef TARGET_OPENGLES
     shaderBlurX.load("shadersES2/shaderBlurX");
     shaderBlurY.load("shadersES2/shaderBlurY");
@@ -46,19 +47,25 @@ void result::draw(ofImage screenImg,bool *bool_OnResult, int before_keyPressed,i
         blur_draw(update_timing,backgroundImg);
         if(update_timing==0){
             //スコアとか追加する
-            if(SystemTimeMillis+30<=ofGetSystemTimeMillis() && drawPointValue<pointCnt-5){
-                drawPointValue+=5;
-                SystemTimeMillis+=30;
-            }else if(SystemTimeMillis+30<=ofGetSystemTimeMillis()){
+            if(SystemTimeMillis+50<=ofGetSystemTimeMillis() && drawPointValue<pointCnt-5){
+                drawPointValue+=10;
+                SystemTimeMillis+=50;
+
+                if(scalexy==3){
+                    scalexy=4;
+                }else{
+                    scalexy=3;
+                }
+            }else if(SystemTimeMillis+50<=ofGetSystemTimeMillis()){
                 drawPointValue=pointCnt;
             }
 
             ofPushMatrix();//座標系退避
             ofPushStyle();//表示スタイル退避
-            ofScale(3,3);
-              char pointCntStr[3]={};
-              sprintf(pointCntStr,"%3d",drawPointValue);
-              std_font.drawString(pointCntStr, ofGetWidth()/2, ofGetHeight()/2);
+            ofScale(scalexy,scalexy);
+              char pointCntStr2[3]={};
+              sprintf(pointCntStr2,"%3d",drawPointValue);
+              std_font.drawString(pointCntStr2, ((ofGetWidth()/2)-10)/scalexy, ((ofGetHeight()/2)+20)/scalexy);
             ofPopMatrix();//座標系退避
             ofPopStyle();//表示スタイル退避
 

@@ -8,6 +8,7 @@ private:
     int image_flag;
     int SystemTimeMillis;
     int drawPointValue;
+    int scalexy;
     ofTrueTypeFont std_font;
 public:
     result();   //コンストラクタ
