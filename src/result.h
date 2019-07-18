@@ -1,4 +1,5 @@
 #include "ofMain.h"
+//#include "CoinManager.h"
 #define COIN_NUM 5
 class result : public ofBaseApp {
 
@@ -8,8 +9,10 @@ private:
     int image_flag;
     int SystemTimeMillis;
     int drawPointValue;
-    int scalexy;
+    float scalexy;
     ofTrueTypeFont std_font;
+    ofSoundPlayer pointCountSound;
+    //CoinManager CoinManagerInstance;
 public:
     result();   //コンストラクタ
     void draw(ofImage screenImg, bool *bool_OnResult, int before_keyPressed, int pointCnt);

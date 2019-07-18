@@ -1,7 +1,7 @@
 #include "result.h"
 
 result::result(){
-    ofTrueTypeFontSettings settings("font/PixelMplus12-Regular.ttf",30);//設定一式を納めるインスタンス
+    ofTrueTypeFontSettings settings("font/PixelMplus12-Regular.ttf",60);//設定一式を納めるインスタンス
     settings.addRanges(ofAlphabet::Latin);
     settings.addRanges(ofAlphabet::Japanese);//日本語
     std_font.load(settings); // 設定をロード
@@ -9,6 +9,8 @@ result::result(){
     image_flag=0;
     drawPointValue=0;
     scalexy=3;
+    pointCountSound.load("sound/pointcount.mp3");
+    pointCountSound.setSpeed(2);
 #ifdef TARGET_OPENGLES
     shaderBlurX.load("shadersES2/shaderBlurX");
     shaderBlurY.load("shadersES2/shaderBlurY");
@@ -38,12 +40,15 @@ void result::update(){
     //cout<<update_timing<<endl;
 }
 void result::draw(ofImage screenImg,bool *bool_OnResult, int before_keyPressed,int pointCnt){
+    //CoinMamagerInstance.CoinList[i]
     if(image_flag==0){
         blur_draw(update_timing,screenImg);
         SystemTimeMillis=ofGetSystemTimeMillis();
+
     }
     if(image_flag==1){
-        pointCnt=999;
+        //デバッグ用
+        //pointCnt=999;
         blur_draw(update_timing,backgroundImg);
         if(update_timing==0){
             //スコアとか追加する
@@ -51,15 +56,17 @@ void result::draw(ofImage screenImg,bool *bool_OnResult, int before_keyPressed,i
                 drawPointValue+=10;
                 SystemTimeMillis+=50;
 
-                if(scalexy==3){
-                    scalexy=4;
+                if(scalexy==1){
+                    scalexy=1.2;
                 }else{
-                    scalexy=3;
+                    scalexy=1;
                 }
+                pointCountSound.play();
             }else if(SystemTimeMillis+50<=ofGetSystemTimeMillis()){
                 drawPointValue=pointCnt;
+                scalexy=1.2;
             }
-
+            //スコアの数字
             ofPushMatrix();//座標系退避
             ofPushStyle();//表示スタイル退避
             ofScale(scalexy,scalexy);
@@ -69,6 +76,37 @@ void result::draw(ofImage screenImg,bool *bool_OnResult, int before_keyPressed,i
             ofPopMatrix();//座標系退避
             ofPopStyle();//表示スタイル退避
 
+            //score
+            //RESTART
+            //coin score
+            ofPushMatrix();//座標系退避
+            ofPushStyle();//表示スタイル退避
+            ofScale(1,1);
+              std_font.drawString("SCORE: ", ((ofGetWidth()/2)-260), ((ofGetHeight()/2)+20));
+              std_font.drawString("RESTART: R", ((ofGetWidth()/2-260)), ((ofGetHeight()/2)+220));
+
+              //coin score
+              int pointCountPos=20;
+              char pointCntStr[3];
+              for(int i=0;i<=COIN_NUM;i++){
+                  ofPushMatrix();//座標系退避
+                  ofPushStyle();//表示スタイル退避
+                    ofSetColor(255,255,255);
+                    ofTranslate(pointCountPos+40, 30);//座標系変換
+                    //coinImage[i]->draw(0,0,40,40);
+                    //CoinManagerInstance.getCoinImage(i).draw(0,0,40,40);
+
+                  ofPopStyle();
+                  ofPopMatrix();
+                  memset( pointCntStr, 0, sizeof( pointCntStr ) );
+                  //コイン別の取得数をofAppから持ってくる
+                  sprintf(pointCntStr,"%3d",/*pointCnt_type[i]*/0);
+                  std_font.drawString(pointCntStr, pointCountPos, 100);
+                  pointCountPos+=80;
+              }
+
+            ofPopMatrix();//座標系退避
+            ofPopStyle();//表示スタイル退避
             if(before_keyPressed=='r'){
                 *bool_OnResult=false;
             }

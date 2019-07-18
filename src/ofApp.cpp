@@ -69,11 +69,11 @@ void ofApp::update(){
                 countSound_end.play();
             }
         }
-        //デバッグ用
-        screenImg.grabScreen(0,0,ofGetWidth(),ofGetHeight());
-        bool_OnResult=true;
-        startbutton.isEnable=true;
-        bool_bM_sound=true;
+//        //デバッグ用
+//        screenImg.grabScreen(0,0,ofGetWidth(),ofGetHeight());
+//        bool_OnResult=true;
+//        startbutton.isEnable=true;
+//        bool_bM_sound=true;
         //---------------------
         if(minute_end+1==ofGetMinutes() && second_end==ofGetSeconds()){
             screenImg.grabScreen(0,0,ofGetWidth(),ofGetHeight());
@@ -180,7 +180,8 @@ void ofApp::draw(){
           ofSetColor(255,255,255);
           ofTranslate(pointCountPos+40, ofGetHeight()-80);//座標系変換
           //coinImage[i]->draw(0,0,40,40);
-          CoinMamagerInstance.getCoinImage(i).draw(0,0,40,40);
+          //CoinMamagerInstance.getCoinImage(i).draw(0,0,40,40);
+          CoinMamagerInstance.CoinList[i]->getImage().draw(0,0,40,40);
 
         ofPopStyle();
         ofPopMatrix();
