@@ -11,6 +11,8 @@ http://www.hmix.net/music_gallery/image/game.htm#machi
 
 https://soundeffect-lab.info/sound/anime/
 
+https://taira-komori.jpn.org/freesound.html
+
 を使用
 
 フレームワーク
