@@ -9,6 +9,8 @@ SE:https://wingless-seraph.net/material-music.html
 
 http://www.hmix.net/music_gallery/image/game.htm#machi
 
+https://soundeffect-lab.info/sound/anime/
+
 を使用
 
 フレームワーク
