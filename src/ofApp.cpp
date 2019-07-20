@@ -193,7 +193,7 @@ void ofApp::draw(){
     ofSetColor(255,255,255,255);
 
     if(bool_OnResult){
-        resultInstance.draw(screenImg,&bool_OnResult,before_keyPressed,pointCnt);
+        resultInstance.draw(screenImg,&bool_OnResult,before_keyPressed,pointCnt,pointCnt_type);
     }
 }
 

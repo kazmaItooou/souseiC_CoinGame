@@ -1,10 +1,9 @@
 #include "ofMain.h"
-//#include "CoinManager.h"
 #define COIN_NUM 5
 class result : public ofBaseApp {
 
 private:
-    void blur_draw(int blur_value, ofImage image);
+    void blur_draw(int blur_value, ofImage image);//blur_valueをもとにimageにブラーをかける
     int update_timing;
     int image_flag;
     int SystemTimeMillis;
@@ -12,10 +11,11 @@ private:
     float scalexy;
     ofTrueTypeFont std_font;
     ofSoundPlayer pointCountSound;
-    //CoinManager CoinManagerInstance;
+    ofImage coins[6];//コインの画像
 public:
     result();   //コンストラクタ
-    void draw(ofImage screenImg, bool *bool_OnResult, int before_keyPressed, int pointCnt);
+
+    void draw(ofImage screenImg, bool *bool_OnResult, int before_keyPressed, int pointCnt, int pointCnt_type[]);
     void update();
     ofShader shaderBlurX;
     ofShader shaderBlurY;

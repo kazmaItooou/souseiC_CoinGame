@@ -11,6 +11,12 @@ result::result(){
     scalexy=3;
     pointCountSound.load("sound/pointcount.mp3");
     pointCountSound.setSpeed(2);
+    coins[0].load("img/coin/copper.png");
+    coins[1].load("img/coin/silver.png");
+    coins[2].load("img/coin/gold.png");
+    coins[3].load("img/coin/red.png");
+    coins[4].load("img/coin/green.png");
+    coins[5].load("img/coin/blue.png");
 #ifdef TARGET_OPENGLES
     shaderBlurX.load("shadersES2/shaderBlurX");
     shaderBlurY.load("shadersES2/shaderBlurY");
@@ -37,9 +43,8 @@ void result::update(){
     if(image_flag==1 && update_timing>0){
         update_timing--;
     }
-    //cout<<update_timing<<endl;
 }
-void result::draw(ofImage screenImg,bool *bool_OnResult, int before_keyPressed,int pointCnt){
+void result::draw(ofImage screenImg,bool *bool_OnResult, int before_keyPressed,int pointCnt,int pointCnt_type[]){
     //CoinMamagerInstance.CoinList[i]
     if(image_flag==0){
         blur_draw(update_timing,screenImg);
@@ -48,13 +53,13 @@ void result::draw(ofImage screenImg,bool *bool_OnResult, int before_keyPressed,i
     }
     if(image_flag==1){
         //デバッグ用
-        //pointCnt=999;
+        pointCnt=999;
         blur_draw(update_timing,backgroundImg);
         if(update_timing==0){
             //スコアとか追加する
-            if(SystemTimeMillis+50<=ofGetSystemTimeMillis() && drawPointValue<pointCnt-5){
-                drawPointValue+=10;
-                SystemTimeMillis+=50;
+            if(SystemTimeMillis+70<=ofGetSystemTimeMillis() && drawPointValue<pointCnt-5){
+                drawPointValue+=5;
+                SystemTimeMillis+=70;
 
                 if(scalexy==1){
                     scalexy=1.2;
@@ -62,51 +67,54 @@ void result::draw(ofImage screenImg,bool *bool_OnResult, int before_keyPressed,i
                     scalexy=1;
                 }
                 pointCountSound.play();
-            }else if(SystemTimeMillis+50<=ofGetSystemTimeMillis()){
+            }else if(SystemTimeMillis+70<=ofGetSystemTimeMillis()){
                 drawPointValue=pointCnt;
                 scalexy=1.2;
             }
             //スコアの数字
-            ofPushMatrix();//座標系退避
-            ofPushStyle();//表示スタイル退避
+            ofPushMatrix();
+            ofPushStyle();
             ofScale(scalexy,scalexy);
+            ofSetColor(0,0,0);
               char pointCntStr2[3]={};
               sprintf(pointCntStr2,"%3d",drawPointValue);
               std_font.drawString(pointCntStr2, ((ofGetWidth()/2)-10)/scalexy, ((ofGetHeight()/2)+20)/scalexy);
-            ofPopMatrix();//座標系退避
-            ofPopStyle();//表示スタイル退避
+            ofPopMatrix();
+            ofPopStyle();
 
-            //score
+            //スコアを表示
             //RESTART
-            //coin score
-            ofPushMatrix();//座標系退避
-            ofPushStyle();//表示スタイル退避
+            ofPushMatrix();
+            ofPushStyle();
             ofScale(1,1);
+              ofSetColor(0,0,0);
               std_font.drawString("SCORE: ", ((ofGetWidth()/2)-260), ((ofGetHeight()/2)+20));
               std_font.drawString("RESTART: R", ((ofGetWidth()/2-260)), ((ofGetHeight()/2)+220));
 
               //coin score
-              int pointCountPos=20;
+              int pointCountPos=-10;
               char pointCntStr[3];
               for(int i=0;i<=COIN_NUM;i++){
-                  ofPushMatrix();//座標系退避
-                  ofPushStyle();//表示スタイル退避
+                  ofPushMatrix();
+                  ofPushStyle();
                     ofSetColor(255,255,255);
-                    ofTranslate(pointCountPos+40, 30);//座標系変換
-                    //coinImage[i]->draw(0,0,40,40);
-                    //CoinManagerInstance.getCoinImage(i).draw(0,0,40,40);
-
+                    ofTranslate(pointCountPos, 30);
+                    coins[i].draw(80,0,50,50);
                   ofPopStyle();
                   ofPopMatrix();
-                  memset( pointCntStr, 0, sizeof( pointCntStr ) );
-                  //コイン別の取得数をofAppから持ってくる
-                  sprintf(pointCntStr,"%3d",/*pointCnt_type[i]*/0);
-                  std_font.drawString(pointCntStr, pointCountPos, 100);
-                  pointCountPos+=80;
+
+                  ofPushStyle();
+                    ofSetColor(0,0,0);
+                    memset( pointCntStr, 0, sizeof( pointCntStr ));
+                    sprintf(pointCntStr,"%3d",pointCnt_type[i]);
+                    std_font.drawString(pointCntStr, pointCountPos, 110);
+                    pointCountPos+=100;
+                  ofPopStyle();
               }
 
-            ofPopMatrix();//座標系退避
-            ofPopStyle();//表示スタイル退避
+            ofPopMatrix();
+            ofPopStyle();
+            //'r'を押すとリザル度画面が終了する
             if(before_keyPressed=='r'){
                 *bool_OnResult=false;
             }
@@ -115,11 +123,12 @@ void result::draw(ofImage screenImg,bool *bool_OnResult, int before_keyPressed,i
 }
 
 void result::blur_draw(int blur_value ,ofImage image){
-    ofPushMatrix();//座標系退避
-    ofPushStyle();//表示スタイル退避
+    ofPushMatrix();
+    ofPushStyle();
+    ofTranslate(0, 0);
+    ofSetRectMode(OF_RECTMODE_CORNER);
 
-      ofTranslate(0, 0);//座標系変換
-      ofSetRectMode(OF_RECTMODE_CORNER);
+    //09_gaussianBlurFilterを利用してブラーを作った
     blur_value = ofMap(blur_value, 0, 60, 0, 30, true);
     //std::cout << blur_value <<"asdf"<< std::endl;
     //----------------------------------------------------------
