@@ -43,9 +43,6 @@ void CoinManager::draw(){
         CoinList[i]->draw();
     }
 }
-ofImage CoinManager::getCoinImage(int i){
-    return  CoinList[i]->getImage();
-}
 
 int CoinManager::checkGetCoin(int player_x, int player_y){
     for(int i=0;i<=COIN_NUM;++i){

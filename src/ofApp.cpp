@@ -33,10 +33,17 @@ void ofApp::setup(){
     //バリア
     bool_bM=false;
     bool_bM_sound=true;
+    //result
+    bool_OnResult=false;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    //result
+    if(bool_OnResult){
+        resultInstance.update();
+    }
+
     //スタートボタンがONのときは常にminute_end、second_endに現在の時間を入れる。
     //そしてタイマーをOFFにし続ける。
     if(!startbutton.isEnable){
@@ -56,17 +63,22 @@ void ofApp::update(){
         //音を鳴らす
         if(second_tmp_end!=ofGetSeconds()){
             second_tmp_end=ofGetSeconds();
+            cout<<"counddown_end: " <<counddown_end <<endl;
             counddown_end--;
             if(counddown_end<=5){
                 countSound_end.play();
             }
         }
+//        //デバッグ用
+//        screenImg.grabScreen(0,0,ofGetWidth(),ofGetHeight());
+//        bool_OnResult=true;
+//        startbutton.isEnable=true;
+//        bool_bM_sound=true;
+        //---------------------
         if(minute_end+1==ofGetMinutes() && second_end==ofGetSeconds()){
+            screenImg.grabScreen(0,0,ofGetWidth(),ofGetHeight());
+            bool_OnResult=true;
             startbutton.isEnable=true;
-            pointCnt=0;
-            for(int i=0;i<=COIN_NUM;i++){
-                pointCnt_type[i]=0;
-            }
             bool_bM_sound=true;
             return;
         }
@@ -112,6 +124,7 @@ void ofApp::update(){
     }else bool_bM=false;
 
     if(pointCnt>=999){pointCnt=999;}//999ポイントがカンスト
+
 }
 
 //--------------------------------------------------------------
@@ -167,7 +180,8 @@ void ofApp::draw(){
           ofSetColor(255,255,255);
           ofTranslate(pointCountPos+40, ofGetHeight()-80);//座標系変換
           //coinImage[i]->draw(0,0,40,40);
-          CoinMamagerInstance.getCoinImage(i).draw(0,0,40,40);
+          //CoinMamagerInstance.getCoinImage(i).draw(0,0,40,40);
+          CoinMamagerInstance.CoinList[i]->getImage().draw(0,0,40,40);
 
         ofPopStyle();
         ofPopMatrix();
@@ -178,11 +192,14 @@ void ofApp::draw(){
     }
     ofSetColor(255,255,255,255);
 
-
+    if(bool_OnResult){
+        resultInstance.draw(screenImg,&bool_OnResult,before_keyPressed,pointCnt,pointCnt_type);
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    before_keyPressed=key;
     if(!bool_keyReleased) return;//連続移動できないようにする
     if(bool_keyReleased)bool_keyReleased= false;
     if(key==1)ofSetWindowShape(640,480);
@@ -225,7 +242,9 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-    startbutton.mousePressed(x,y,button);
+    if(!bool_OnResult){
+        startbutton.mousePressed(x,y,button,&pointCnt,&pointCnt_type[0]);
+    }
 }
 
 //--------------------------------------------------------------

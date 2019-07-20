@@ -28,7 +28,7 @@ void startobj::Draw(){
     ofPopMatrix(); 
 }
 
-void startobj::mousePressed(int x, int y, int button){
+void startobj::mousePressed(int x, int y, int button,int *pointCnt,int *pointCnt_type){
     int BtnU_y=40*6+120/2;//オプションボタンの下のy座標
     int BtnO_y=40*6-120/2;//オプションボタンの上のy座標
 
@@ -38,6 +38,10 @@ void startobj::mousePressed(int x, int y, int button){
         if(btn_y(BtnO_y,BtnU_y, y) &&
                 btn_x(BtnL_x, BtnR_x,x) && button==0){
             isEnable=false;
+            *pointCnt=0;
+            for(int i=0;i<=COIN_NUM;i++){
+                pointCnt_type[i]=0;
+            }
             std::cout << "isEnable" << std::endl;
         }
     }

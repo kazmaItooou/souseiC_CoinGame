@@ -1,4 +1,5 @@
 #include "ofMain.h"
+#define COIN_NUM 5
 class startobj : public ofBaseApp {
 
 private:    //非公開
@@ -12,5 +13,5 @@ public:    //公開
 
     bool isEnable;//ボタンが押されているか
     void Draw();
-    void mousePressed(int x, int y, int button);
+    void mousePressed(int x, int y, int button, int *pointCnt, int *pointCnt_type);
 };
