@@ -53,7 +53,7 @@ void result::draw(ofImage screenImg,bool *bool_OnResult, int before_keyPressed,i
     }
     if(image_flag==1){
         //デバッグ用
-        pointCnt=999;
+        //pointCnt=999;
         blur_draw(update_timing,backgroundImg);
         if(update_timing==0){
             //スコアとか追加する
