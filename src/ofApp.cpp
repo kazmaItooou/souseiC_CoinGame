@@ -209,17 +209,21 @@ void ofApp::keyPressed(int key){
 
     if (key == 'w') {
         PlayerInstance.setPos_y(before_player_y-BASE_COORD);
+        PlayerInstance.chengeImage(0);
     }
 
     if (key == 's') {
         PlayerInstance.setPos_y(before_player_y+BASE_COORD);
+        PlayerInstance.chengeImage(3);
     }
 
     if (key == 'a') {
         PlayerInstance.setPos_x(before_player_x-BASE_COORD);
+        PlayerInstance.chengeImage(1);
     }
     if (key == 'd') {
         PlayerInstance.setPos_x(before_player_x+BASE_COORD);
+        PlayerInstance.chengeImage(2);
     }
 
 }
