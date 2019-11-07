@@ -22,7 +22,3 @@ https://openframeworks.cc/
 を使用
 # 説明
 コインを集めることで、ポイントを稼いでいくゲーム
-
-現在も制作中
-動画
-https://youtu.be/I-VSweczZiw
