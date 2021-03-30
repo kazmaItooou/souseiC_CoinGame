@@ -22,5 +22,6 @@ https://openframeworks.cc/
 を使用
 # 説明
 コインを集めることで、ポイントを稼いでいくゲーム
+
 プレゼン内容
 https://github.com/kazmaItooou/souseiC_CoinGame/blob/master/0710_Final_EP18009-presen.pdf
